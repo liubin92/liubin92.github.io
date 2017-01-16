@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>故事是这样的</title>
+  <subtitle>你来人间一趟 你要看看太阳</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://liubin92.github.io/"/>
+  <updated>2017-01-16T12:33:03.000Z</updated>
+  <id>https://liubin92.github.io/</id>
+  
+  <author>
+    <name>liubin</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://liubin92.github.io/2017/01/hello-world/"/>
+    <id>https://liubin92.github.io/2017/01/hello-world/</id>
+    <published>2017-01-16T12:15:25.000Z</published>
+    <updated>2017-01-16T12:33:03.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="欢迎-我白天是个程序员-晚上就是个有抱负的演员。这是我的博客。我住在天朝的帝都-有条叫做-Jack-的狗。"><a href="#欢迎-我白天是个程序员-晚上就是个有抱负的演员。这是我的博客。我住在天朝的帝都-有条叫做-Jack-的狗。" class="headerlink" title="欢迎! 我白天是个程序员,晚上就是个有抱负的演员。这是我的博客。我住在天朝的帝都,有条叫做 Jack 的狗。"></a>欢迎! 我白天是个程序员,晚上就是个有抱负的演员。这是我的博客。我住在天朝的帝都,有条叫做 Jack 的狗。</h3>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;欢迎-我白天是个程序员-晚上就是个有抱负的演员。这是我的博客。我住在天朝的帝都-有条叫做-Jack-的狗。&quot;&gt;&lt;a href=&quot;#欢迎-我白天是个程序员-晚上就是个有抱负的演员。这是我的博客。我住在天朝的帝都-有条叫做-Jack-的狗。&quot; class=&quot;heade
+    
+    </summary>
+    
+      <category term="生活" scheme="https://liubin92.github.io/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+    
+      <category term="生活" scheme="https://liubin92.github.io/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+  </entry>
+  
+</feed>
