@@ -253,6 +253,178 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/03/Linux笔记-不定期更新/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="liubin">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpeg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="故事是这样的">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="故事是这样的" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/Linux笔记-不定期更新/" itemprop="url">
+                  Linux笔记(不定期更新)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-19T17:24:01+08:00">
+                2017-03-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Easy-way-to-determine-virtualization-technology"><a href="#Easy-way-to-determine-virtualization-technology" class="headerlink" title="Easy way to determine virtualization technology"></a>Easy way to determine virtualization technology</h2><p><code>dmidecode -s system-product-name</code></p>
+<ul>
+<li><p>Virtualization technolgies </p>
+<ul>
+<li><p>VMware Workstation</p>
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">root@localhost:~# dmidecode -s system-product-<span class="keyword">name</span></div><div class="line">VMware <span class="keyword">Virtual</span> <span class="keyword">Platform</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>VirtualBox</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">root<span class="variable">@localhost</span><span class="symbol">:~</span><span class="comment"># dmidecode -s system-product-name</span></div><div class="line">VirtualBox</div></pre></td></tr></table></figure>
+</li>
+<li><p>Qemu with KVM</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">root<span class="variable">@localhost</span><span class="symbol">:~</span><span class="comment"># dmidecode -s system-product-name</span></div><div class="line">KVM</div></pre></td></tr></table></figure>
+</li>
+<li><p>Qemu (emulated)</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">root<span class="variable">@localhost</span><span class="symbol">:~</span><span class="comment"># dmidecode -s system-product-name</span></div><div class="line">Bochs</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>References<br>  <a href="http://unix.stackexchange.com/questions/89714/easy-way-to-determine-virtualization-technology" target="_blank" rel="external">linux - Easy way to determine virtualization technology - Unix &amp; Linux Stack Exchange</a></li>
+</ul>
+<h2 id="CentOS-7-设置静态IP"><a href="#CentOS-7-设置静态IP" class="headerlink" title="CentOS 7 设置静态IP"></a>CentOS 7 设置静态IP</h2><ol>
+<li>编辑配置文件:<br> <code>root@localhost:~# vim /etc/sysconfig/network-scripts/ifcfg-enp0s3</code></li>
+<li><p>修改以下配置项:</p>
+ <figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="attr">BOOTPROTO</span>=<span class="string">"static"</span> #dhcp改为static </div><div class="line"><span class="attr">ONBOOT</span>=<span class="string">"yes"</span> #开机启用本配置</div><div class="line"><span class="attr">IPADDR</span>=<span class="number">192.168</span>.<span class="number">5.192</span> #静态IP</div><div class="line"><span class="attr">GATEWAY</span>=<span class="number">192.168</span>.<span class="number">4.1</span> #默认网关</div><div class="line"><span class="attr">NETMASK</span>=<span class="number">255.255</span>.<span class="number">252.0</span> #子网掩码</div></pre></td></tr></table></figure>
+</li>
+<li><p>修改后的配置:<br> <code>root@localhost:~# cat /etc/sysconfig/network-scripts/ifcfg-enp0s3</code></p>
+ <figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="attr">TYPE</span>=<span class="string">"Ethernet"</span></div><div class="line"><span class="attr">BOOTPROTO</span>=<span class="string">"static"</span></div><div class="line"><span class="attr">DEFROUTE</span>=<span class="string">"yes"</span></div><div class="line"><span class="attr">PEERDNS</span>=<span class="string">"yes"</span></div><div class="line"><span class="attr">PEERROUTES</span>=<span class="string">"yes"</span></div><div class="line"><span class="attr">IPV4_FAILURE_FATAL</span>=<span class="string">"no"</span></div><div class="line"><span class="attr">IPV6INIT</span>=<span class="string">"yes"</span></div><div class="line"><span class="attr">IPV6_AUTOCONF</span>=<span class="string">"yes"</span></div><div class="line"><span class="attr">IPV6_DEFROUTE</span>=<span class="string">"yes"</span></div><div class="line"><span class="attr">IPV6_PEERDNS</span>=<span class="string">"yes"</span></div><div class="line"><span class="attr">IPV6_PEERROUTES</span>=<span class="string">"yes"</span></div><div class="line"><span class="attr">IPV6_FAILURE_FATAL</span>=<span class="string">"no"</span></div><div class="line"><span class="attr">IPV6_ADDR_GEN_MODE</span>=<span class="string">"stable-privacy"</span></div><div class="line"><span class="attr">NAME</span>=<span class="string">"enp0s3"</span></div><div class="line"><span class="attr">UUID</span>=<span class="string">"9281a4f6-b04e-4007-8af0-b05a69e6a5aa"</span></div><div class="line"><span class="attr">DEVICE</span>=<span class="string">"enp0s3"</span></div><div class="line"><span class="attr">ONBOOT</span>=<span class="string">"yes"</span></div><div class="line"><span class="attr">IPADDR</span>=<span class="number">192.168</span>.<span class="number">5.192</span></div><div class="line"><span class="attr">GATEWAY</span>=<span class="number">192.168</span>.<span class="number">4.1</span></div><div class="line"><span class="attr">NETMASK</span>=<span class="number">255.255</span>.<span class="number">252.0</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>重启网络服务:<br> <code>root@localhost:~# service network restart</code></p>
+</li>
+<li>查看修改后的网络信息:<br> <code>root@localhost:~# ip addr</code> <figure class="highlight pf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span>: lo: <span class="variable">&lt;LOOPBACK,UP,LOWER_UP&gt;</span> mtu <span class="number">65536</span> qdisc noqueue <span class="keyword">state</span> UNKNOWN qlen <span class="number">1</span></div><div class="line">    link/loopback <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> brd <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span></div><div class="line">    <span class="keyword">inet</span> <span class="number">127.0</span>.<span class="number">0.1</span>/<span class="number">8</span> scope host lo</div><div class="line">       valid_lft forever preferred_lft forever</div><div class="line">    <span class="keyword">inet6</span> ::<span class="number">1</span>/<span class="number">128</span> scope host</div><div class="line">       valid_lft forever preferred_lft forever</div><div class="line"><span class="number">2</span>: enp0s3: <span class="variable">&lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt;</span> mtu <span class="number">1500</span> qdisc pfifo_fast <span class="keyword">state</span> UP qlen <span class="number">1000</span></div><div class="line">    link/ether <span class="number">08</span>:<span class="number">00</span>:<span class="number">27</span>:<span class="number">79</span>:<span class="number">22</span>:ab brd ff:ff:ff:ff:ff:ff</div><div class="line">    <span class="keyword">inet</span> <span class="number">192.168</span>.<span class="number">5.192</span>/<span class="number">22</span> brd <span class="number">192.168</span>.<span class="number">7.255</span> scope <span class="keyword">global</span> enp0s3</div><div class="line">       valid_lft forever preferred_lft forever</div><div class="line">    <span class="keyword">inet6</span> fe80::<span class="number">3723</span>:<span class="number">8466</span>:a91:fc59/<span class="number">64</span> scope link</div><div class="line">       valid_lft forever preferred_lft forever</div></pre></td></tr></table></figure></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/03/rel-noopener是什么/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -801,7 +973,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -810,7 +982,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -819,7 +991,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
