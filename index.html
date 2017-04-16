@@ -253,6 +253,156 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/04/redux-saga实践总结及其高级功能在dvajs中的应用/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="liubin">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpeg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="故事是这样的">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="故事是这样的" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/redux-saga实践总结及其高级功能在dvajs中的应用/" itemprop="url">
+                  redux-saga实践总结及其高级功能在dvajs中的应用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-16T15:23:51+08:00">
+                2017-04-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="选择-dvajs"><a href="#选择-dvajs" class="headerlink" title="选择 dvajs"></a>选择 dvajs</h2><p>最近一直忙于公司产品的前端重构，因为之前学习和接触的东西一直以后端为主，使用的语言又是以 PHP 为主，所以对于前端开发使用的语言 ES6 的代码规范和编程风格不太熟悉，对于前端工程化的经验也是几乎为零。虽然 leader 给了充足的学习时间和强大的技术支持，但写代码的就我自己。于是乎我就选择了 <strong>antd+dvajs</strong>，一来框架作者提供的 Demo 可以让我去学习前端的设计思想和代码的编写规范，二来不需要我耗费过多的精力去搭建整个项目的生态。站在巨人的肩上，才能更好更快地拥抱 <strong>react/redux</strong> 全家桶。</p>
+<h2 id="redux-saga"><a href="#redux-saga" class="headerlink" title="redux-saga"></a>redux-saga</h2><p>在 dvajs 中，作者选择了 redux-saga 处理异步操作。而对于异步处理的问题，目前比较流行的通用解决方案如下：</p>
+<ul>
+<li><a href="https://github.com/gaearon/redux-thunk" target="_blank" rel="external">redux-thunk</a></li>
+<li><a href="https://github.com/acdlite/redux-promise" target="_blank" rel="external">redux-promise</a></li>
+<li><a href="https://github.com/yelouafi/redux-saga" target="_blank" rel="external">redux-saga</a></li>
+</ul>
+<p>前两个方案一个是支持函数形式的action，另一个是支持 promise 形式的 action，但是有一个共同的问题就是：都改变了action的含义，使得action的含义不那么纯粹了。</p>
+<p>redux-saga则以优雅而强大的方式，把业务逻辑都放在saga中，通过监听 action 来执行有副作用的 task，并且引入了 <a href="http://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf" target="_blank" rel="external">sagas</a> 的机制和 generator 的特性，让 reducer, action 和 component 都很纯粹地干他们原本需要干的事情。</p>
+<h3 id="关于-saga-的几个名词："><a href="#关于-saga-的几个名词：" class="headerlink" title="关于 saga 的几个名词："></a>关于 saga 的几个名词：</h3><h4 id="Effect"><a href="#Effect" class="headerlink" title="Effect"></a>Effect</h4><p>Effect 是一个 javascript 对象，通过使用 <code>redux-saga/effects</code> 包里提供的函数来创建，里面包含描述异步操作（Side Effect）的信息，通过 yield 传达给 sagaMiddleware 执行, 我们可以把每一个 Effect 看成一道发送给 middleware 的指令。</p>
+<h4 id="Saga"><a href="#Saga" class="headerlink" title="Saga"></a>Saga</h4><p>所有的 Saga 都是由 Generator 函数实现，所做的实际上是通过组合 Effect，以实现所需的控制流。最简单的例子就是把 yield Effects 一个接一个地放置，就可以让 Effect 按顺序执行。</p>
+<h4 id="Task"><a href="#Task" class="headerlink" title="Task"></a>Task</h4><p>一个 task 就像是一个在后台运行的进程。在基于 redux-saga 的应用程序中，可以同时运行多个 task。通过 <code>fork</code> 函数来创建 task，同时可以使用 <code>cancel</code> 函数来结束 task.</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/03/Linux笔记-不定期更新/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -979,7 +1129,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -997,7 +1147,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

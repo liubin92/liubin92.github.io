@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="html,安全," />
+  <meta name="keywords" content="redux,dvajs," />
 
 
 
@@ -86,28 +86,16 @@
 
 
 
-<meta name="description" content="问题的出现昨晚上用ESLint检查代码时,出现了这样一行错误：
-
-Using target=”_blank” without rel=”noopener noreferrer” is a security risk: see https://mathiasbynens.github.io/rel-noopener  react/jsx-no-target-blank
-
-当然加上rel=&amp;quot;">
+<meta name="description" content="选择 dvajs最近一直忙于公司产品的前端重构，因为之前学习和接触的东西一直以后端为主，使用的语言又是以 PHP 为主，所以对于前端开发使用的语言 ES6 的代码规范和编程风格不太熟悉，对于前端工程化的经验也是几乎为零。虽然 leader 给了充足的学习时间和强大的技术支持，但写代码的就我自己。于是乎我就选择了 antd+dvajs，一来框架作者提供的 Demo 可以让我去学习前端的设计思想和代码">
 <meta property="og:type" content="article">
-<meta property="og:title" content="rel=noopener是什么">
-<meta property="og:url" content="https://liubin92.github.io/2017/03/rel-noopener是什么/index.html">
+<meta property="og:title" content="redux-saga实践总结及其高级功能在dvajs中的应用">
+<meta property="og:url" content="https://liubin92.github.io/2017/04/redux-saga实践总结及其高级功能在dvajs中的应用/index.html">
 <meta property="og:site_name" content="故事是这样的">
-<meta property="og:description" content="问题的出现昨晚上用ESLint检查代码时,出现了这样一行错误：
-
-Using target=”_blank” without rel=”noopener noreferrer” is a security risk: see https://mathiasbynens.github.io/rel-noopener  react/jsx-no-target-blank
-
-当然加上rel=&amp;quot;">
-<meta property="og:updated_time" content="2017-03-02T05:35:31.000Z">
+<meta property="og:description" content="选择 dvajs最近一直忙于公司产品的前端重构，因为之前学习和接触的东西一直以后端为主，使用的语言又是以 PHP 为主，所以对于前端开发使用的语言 ES6 的代码规范和编程风格不太熟悉，对于前端工程化的经验也是几乎为零。虽然 leader 给了充足的学习时间和强大的技术支持，但写代码的就我自己。于是乎我就选择了 antd+dvajs，一来框架作者提供的 Demo 可以让我去学习前端的设计思想和代码">
+<meta property="og:updated_time" content="2017-04-16T10:24:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="rel=noopener是什么">
-<meta name="twitter:description" content="问题的出现昨晚上用ESLint检查代码时,出现了这样一行错误：
-
-Using target=”_blank” without rel=”noopener noreferrer” is a security risk: see https://mathiasbynens.github.io/rel-noopener  react/jsx-no-target-blank
-
-当然加上rel=&amp;quot;">
+<meta name="twitter:title" content="redux-saga实践总结及其高级功能在dvajs中的应用">
+<meta name="twitter:description" content="选择 dvajs最近一直忙于公司产品的前端重构，因为之前学习和接触的东西一直以后端为主，使用的语言又是以 PHP 为主，所以对于前端开发使用的语言 ES6 的代码规范和编程风格不太熟悉，对于前端工程化的经验也是几乎为零。虽然 leader 给了充足的学习时间和强大的技术支持，但写代码的就我自己。于是乎我就选择了 antd+dvajs，一来框架作者提供的 Demo 可以让我去学习前端的设计思想和代码">
 
 
 
@@ -135,13 +123,13 @@ Using target=”_blank” without rel=”noopener noreferrer” is a security ri
 
 
 
-  <link rel="canonical" href="https://liubin92.github.io/2017/03/rel-noopener是什么/"/>
+  <link rel="canonical" href="https://liubin92.github.io/2017/04/redux-saga实践总结及其高级功能在dvajs中的应用/"/>
 
 
 
 
 
-  <title> rel=noopener是什么 | 故事是这样的 </title>
+  <title> redux-saga实践总结及其高级功能在dvajs中的应用 | 故事是这样的 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -264,7 +252,7 @@ Using target=”_blank” without rel=”noopener noreferrer” is a security ri
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/03/rel-noopener是什么/">
+  <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/04/redux-saga实践总结及其高级功能在dvajs中的应用/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="liubin">
@@ -288,7 +276,7 @@ Using target=”_blank” without rel=”noopener noreferrer” is a security ri
             
             
               
-                rel=noopener是什么
+                redux-saga实践总结及其高级功能在dvajs中的应用
               
             
           </h1>
@@ -303,8 +291,8 @@ Using target=”_blank” without rel=”noopener noreferrer” is a security ri
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-02T10:38:03+08:00">
-                2017-03-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-16T15:23:51+08:00">
+                2017-04-16
               </time>
             
 
@@ -359,33 +347,18 @@ Using target=”_blank” without rel=”noopener noreferrer” is a security ri
       
 
       
-        <h2 id="问题的出现"><a href="#问题的出现" class="headerlink" title="问题的出现"></a>问题的出现</h2><p>昨晚上用<a href="http://eslint.org/" target="_blank" rel="external">ESLint</a>检查代码时,出现了这样一行错误：</p>
-<blockquote>
-<p>Using target=”_blank” without rel=”noopener noreferrer” is a security risk: see <a href="https://mathiasbynens.github.io/rel-noopener" target="_blank" rel="external">https://mathiasbynens.github.io/rel-noopener</a>  react/jsx-no-target-blank</p>
-</blockquote>
-<p>当然加上<code>rel=&quot;noopener noreferrer&quot;</code>之后报错就没有了，可问题是：<strong>what’s this?</strong></p>
-<h2 id="关于rel"><a href="#关于rel" class="headerlink" title="关于rel"></a>关于rel</h2><p>rel是relationship的缩写，用于指定当前文档与href链接的文档的关系（顺便一说，rev属性已在HTML5中废弃）。<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/a" target="_blank" rel="external">MDN</a>中如此描述：</p>
-<blockquote>
-<p><strong>rel</strong></p>
-<p>对于锚点来说，rel具有href的属性， 该属性指定了目标对象到链接对象的关系。该值是空格分隔的列表关系值。 该值和语义可能将会被一些权威文档编者赋予不同的含义。 在默认的情况下，如果没有其它定义，是无效的，只有在 href 存在的情况下，使用该属性。</p>
-</blockquote>
-<p>并且在<code>target</code>属性后面写到：</p>
-<blockquote>
-<p><strong>注意：</strong>使用target时，考虑添加 rel=”noopener norefferrer” 以防止针对 window.opener API 的恶意行为。</p>
-</blockquote>
-<p>由此看来，写上这条属性的好处首先是让链接的语义更加明确，语义明确后，自然是搜索引擎友好，然后还可以提升网页的安全性。</p>
-<h2 id="问题究竟是什么"><a href="#问题究竟是什么" class="headerlink" title="问题究竟是什么"></a>问题究竟是什么</h2><p>关于<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/opener" target="_blank" rel="external">window.opener</a>，MDN里有这么一句：</p>
-<blockquote>
-<p><strong>备注</strong></p>
-<p>如果当前窗口是由另一个窗口打开的, window.opener保留了那个窗口的引用. 如果当前窗口不是由其他窗口打开的, 则该属性返回 null.</p>
-</blockquote>
-<p>我想问题大概就是在这里吧，链接到信任的站点自然可以灵活地使用，可是一旦链接到钓鱼网站，这个网站可以做什么你总是难以预料。<strong>但总的来说，这种行为的潜在风险是远远大于好处的。</strong></p>
-<h2 id="接下来该怎么做"><a href="#接下来该怎么做" class="headerlink" title="接下来该怎么做"></a>接下来该怎么做</h2><p>对于<code>rel=&quot;noopener&quot;</code>这个属性，在Chrome 49+、Opera 36+中可以将window.opener设置为null，但如果浏览器是比较老的版本，实际上要使用<code>rel=&quot;noopener norefferrer&quot;</code>去完整覆盖，将HTTP头部Referer属性也禁用掉。</p>
-<p>其实我个人还是偏向于听从最开始那篇文章里的建议:</p>
-<blockquote>
-<p>Don’t use target=_blank (or any other target that opens a new navigation context), especially for links in user-generated content, unless you have <a href="https://css-tricks.com/use-target_blank/" target="_blank" rel="external">a good reason to</a>.</p>
-</blockquote>
-<p>所以说，尤其是网站用来对外提供给用户使用的情况下，请不要低估这个问题，更没有理由去忽视这个问题。</p>
+        <h2 id="选择-dvajs"><a href="#选择-dvajs" class="headerlink" title="选择 dvajs"></a>选择 dvajs</h2><p>最近一直忙于公司产品的前端重构，因为之前学习和接触的东西一直以后端为主，使用的语言又是以 PHP 为主，所以对于前端开发使用的语言 ES6 的代码规范和编程风格不太熟悉，对于前端工程化的经验也是几乎为零。虽然 leader 给了充足的学习时间和强大的技术支持，但写代码的就我自己。于是乎我就选择了 <strong>antd+dvajs</strong>，一来框架作者提供的 Demo 可以让我去学习前端的设计思想和代码的编写规范，二来不需要我耗费过多的精力去搭建整个项目的生态。站在巨人的肩上，才能更好更快地拥抱 <strong>react/redux</strong> 全家桶。</p>
+<h2 id="redux-saga"><a href="#redux-saga" class="headerlink" title="redux-saga"></a>redux-saga</h2><p>在 dvajs 中，作者选择了 redux-saga 处理异步操作。而对于异步处理的问题，目前比较流行的通用解决方案如下：</p>
+<ul>
+<li><a href="https://github.com/gaearon/redux-thunk" target="_blank" rel="external">redux-thunk</a></li>
+<li><a href="https://github.com/acdlite/redux-promise" target="_blank" rel="external">redux-promise</a></li>
+<li><a href="https://github.com/yelouafi/redux-saga" target="_blank" rel="external">redux-saga</a></li>
+</ul>
+<p>前两个方案一个是支持函数形式的action，另一个是支持 promise 形式的 action，但是有一个共同的问题就是：都改变了action的含义，使得action的含义不那么纯粹了。</p>
+<p>redux-saga则以优雅而强大的方式，把业务逻辑都放在saga中，通过监听 action 来执行有副作用的 task，并且引入了 <a href="http://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf" target="_blank" rel="external">sagas</a> 的机制和 generator 的特性，让 reducer, action 和 component 都很纯粹地干他们原本需要干的事情。</p>
+<h3 id="关于-saga-的几个名词："><a href="#关于-saga-的几个名词：" class="headerlink" title="关于 saga 的几个名词："></a>关于 saga 的几个名词：</h3><h4 id="Effect"><a href="#Effect" class="headerlink" title="Effect"></a>Effect</h4><p>Effect 是一个 javascript 对象，通过使用 <code>redux-saga/effects</code> 包里提供的函数来创建，里面包含描述异步操作（Side Effect）的信息，通过 yield 传达给 sagaMiddleware 执行, 我们可以把每一个 Effect 看成一道发送给 middleware 的指令。</p>
+<h4 id="Saga"><a href="#Saga" class="headerlink" title="Saga"></a>Saga</h4><p>所有的 Saga 都是由 Generator 函数实现，所做的实际上是通过组合 Effect，以实现所需的控制流。最简单的例子就是把 yield Effects 一个接一个地放置，就可以让 Effect 按顺序执行。</p>
+<h4 id="Task"><a href="#Task" class="headerlink" title="Task"></a>Task</h4><p>一个 task 就像是一个在后台运行的进程。在基于 redux-saga 的应用程序中，可以同时运行多个 task。通过 <code>fork</code> 函数来创建 task，同时可以使用 <code>cancel</code> 函数来结束 task.</p>
 
       
     </div>
@@ -409,9 +382,9 @@ Using target=”_blank” without rel=”noopener noreferrer” is a security ri
       
         <div class="post-tags">
           
-            <a href="/tags/html/" rel="tag"># html</a>
+            <a href="/tags/redux/" rel="tag"># redux</a>
           
-            <a href="/tags/安全/" rel="tag"># 安全</a>
+            <a href="/tags/dvajs/" rel="tag"># dvajs</a>
           
         </div>
       
@@ -420,8 +393,8 @@ Using target=”_blank” without rel=”noopener noreferrer” is a security ri
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/常用正则表达式大全/" rel="next" title="常用正则表达式大全">
-                <i class="fa fa-chevron-left"></i> 常用正则表达式大全
+              <a href="/2017/03/Linux笔记-不定期更新/" rel="next" title="Linux笔记(不定期更新)">
+                <i class="fa fa-chevron-left"></i> Linux笔记(不定期更新)
               </a>
             
           </div>
@@ -429,10 +402,6 @@ Using target=”_blank” without rel=”noopener noreferrer” is a security ri
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/03/Linux笔记-不定期更新/" rel="prev" title="Linux笔记(不定期更新)">
-                Linux笔记(不定期更新) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -569,7 +538,7 @@ Using target=”_blank” without rel=”noopener noreferrer” is a security ri
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题的出现"><span class="nav-number">1.</span> <span class="nav-text">问题的出现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于rel"><span class="nav-number">2.</span> <span class="nav-text">关于rel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题究竟是什么"><span class="nav-number">3.</span> <span class="nav-text">问题究竟是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接下来该怎么做"><span class="nav-number">4.</span> <span class="nav-text">接下来该怎么做</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#选择-dvajs"><span class="nav-number">1.</span> <span class="nav-text">选择 dvajs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redux-saga"><span class="nav-number">2.</span> <span class="nav-text">redux-saga</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于-saga-的几个名词："><span class="nav-number">2.1.</span> <span class="nav-text">关于 saga 的几个名词：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Effect"><span class="nav-number">2.1.1.</span> <span class="nav-text">Effect</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Saga"><span class="nav-number">2.1.2.</span> <span class="nav-text">Saga</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Task"><span class="nav-number">2.1.3.</span> <span class="nav-text">Task</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

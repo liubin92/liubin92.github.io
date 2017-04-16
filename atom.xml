@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://liubin92.github.io/"/>
-  <updated>2017-03-29T02:46:33.000Z</updated>
+  <updated>2017-04-16T10:24:56.000Z</updated>
   <id>https://liubin92.github.io/</id>
   
   <author>
@@ -14,6 +14,42 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>redux-saga实践总结及其高级功能在dvajs中的应用</title>
+    <link href="https://liubin92.github.io/2017/04/redux-saga%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93%E5%8F%8A%E5%85%B6%E9%AB%98%E7%BA%A7%E5%8A%9F%E8%83%BD%E5%9C%A8dvajs%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/"/>
+    <id>https://liubin92.github.io/2017/04/redux-saga实践总结及其高级功能在dvajs中的应用/</id>
+    <published>2017-04-16T07:23:51.000Z</published>
+    <updated>2017-04-16T10:24:56.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="选择-dvajs"><a href="#选择-dvajs" class="headerlink" title="选择 dvajs"></a>选择 dvajs</h2><p>最近一直忙于公司产品的前端重构，因为之前学习和接触的东西一直以后端为主，使用的语言又是以 PHP 为主，所以对于前端开发使用的语言 ES6 的代码规范和编程风格不太熟悉，对于前端工程化的经验也是几乎为零。虽然 leader 给了充足的学习时间和强大的技术支持，但写代码的就我自己。于是乎我就选择了 <strong>antd+dvajs</strong>，一来框架作者提供的 Demo 可以让我去学习前端的设计思想和代码的编写规范，二来不需要我耗费过多的精力去搭建整个项目的生态。站在巨人的肩上，才能更好更快地拥抱 <strong>react/redux</strong> 全家桶。</p>
+<h2 id="redux-saga"><a href="#redux-saga" class="headerlink" title="redux-saga"></a>redux-saga</h2><p>在 dvajs 中，作者选择了 redux-saga 处理异步操作。而对于异步处理的问题，目前比较流行的通用解决方案如下：</p>
+<ul>
+<li><a href="https://github.com/gaearon/redux-thunk" target="_blank" rel="external">redux-thunk</a></li>
+<li><a href="https://github.com/acdlite/redux-promise" target="_blank" rel="external">redux-promise</a></li>
+<li><a href="https://github.com/yelouafi/redux-saga" target="_blank" rel="external">redux-saga</a></li>
+</ul>
+<p>前两个方案一个是支持函数形式的action，另一个是支持 promise 形式的 action，但是有一个共同的问题就是：都改变了action的含义，使得action的含义不那么纯粹了。</p>
+<p>redux-saga则以优雅而强大的方式，把业务逻辑都放在saga中，通过监听 action 来执行有副作用的 task，并且引入了 <a href="http://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf" target="_blank" rel="external">sagas</a> 的机制和 generator 的特性，让 reducer, action 和 component 都很纯粹地干他们原本需要干的事情。</p>
+<h3 id="关于-saga-的几个名词："><a href="#关于-saga-的几个名词：" class="headerlink" title="关于 saga 的几个名词："></a>关于 saga 的几个名词：</h3><h4 id="Effect"><a href="#Effect" class="headerlink" title="Effect"></a>Effect</h4><p>Effect 是一个 javascript 对象，通过使用 <code>redux-saga/effects</code> 包里提供的函数来创建，里面包含描述异步操作（Side Effect）的信息，通过 yield 传达给 sagaMiddleware 执行, 我们可以把每一个 Effect 看成一道发送给 middleware 的指令。</p>
+<h4 id="Saga"><a href="#Saga" class="headerlink" title="Saga"></a>Saga</h4><p>所有的 Saga 都是由 Generator 函数实现，所做的实际上是通过组合 Effect，以实现所需的控制流。最简单的例子就是把 yield Effects 一个接一个地放置，就可以让 Effect 按顺序执行。</p>
+<h4 id="Task"><a href="#Task" class="headerlink" title="Task"></a>Task</h4><p>一个 task 就像是一个在后台运行的进程。在基于 redux-saga 的应用程序中，可以同时运行多个 task。通过 <code>fork</code> 函数来创建 task，同时可以使用 <code>cancel</code> 函数来结束 task.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;选择-dvajs&quot;&gt;&lt;a href=&quot;#选择-dvajs&quot; class=&quot;headerlink&quot; title=&quot;选择 dvajs&quot;&gt;&lt;/a&gt;选择 dvajs&lt;/h2&gt;&lt;p&gt;最近一直忙于公司产品的前端重构，因为之前学习和接触的东西一直以后端为主，使用的语言又是以 P
+    
+    </summary>
+    
+      <category term="前端" scheme="https://liubin92.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="redux" scheme="https://liubin92.github.io/tags/redux/"/>
+    
+      <category term="dvajs" scheme="https://liubin92.github.io/tags/dvajs/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux笔记(不定期更新)</title>
