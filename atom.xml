@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://liubin92.github.io/"/>
-  <updated>2017-04-17T06:23:21.000Z</updated>
+  <updated>2017-04-17T06:53:45.000Z</updated>
   <id>https://liubin92.github.io/</id>
   
   <author>
@@ -20,13 +20,13 @@
     <link href="https://liubin92.github.io/2017/04/redux-saga%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93%E5%8F%8A%E5%85%B6%E9%AB%98%E7%BA%A7%E5%8A%9F%E8%83%BD%E5%9C%A8dvajs%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/"/>
     <id>https://liubin92.github.io/2017/04/redux-saga实践总结及其高级功能在dvajs中的应用/</id>
     <published>2017-04-16T07:23:51.000Z</published>
-    <updated>2017-04-17T06:23:21.000Z</updated>
+    <updated>2017-04-17T06:53:45.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="选择-dvajs"><a href="#选择-dvajs" class="headerlink" title="选择 dvajs"></a>选择 dvajs</h2><p>最近一直忙于公司产品的前端重构，因为之前学习和接触的东西一直以后端为主，使用的语言又是以 PHP 为主，所以对于前端开发使用的语言 ES6 的代码规范和编程风格不太熟悉，对于前端工程化的经验也是几乎为零。虽然 leader 给了充足的学习时间和强大的技术支持，但写代码的就我自己。于是乎我就选择了 <strong>antd+dvajs</strong>，一来框架作者提供的 Demo 可以让我去学习前端的设计思想和代码的编写规范，二来我不需要耗费过多的精力去搭建整个项目的生态。站在巨人的肩上，才能更好更快地拥抱 <strong>react/redux</strong> 全家桶。</p>
 <h2 id="redux-saga"><a href="#redux-saga" class="headerlink" title="redux-saga"></a>redux-saga</h2><h3 id="什么是-saga"><a href="#什么是-saga" class="headerlink" title="什么是 saga"></a>什么是 saga</h3><p>Saga这个名词常被用在CQRS的讨论中，它是指一段在限定上下文（bounded contexts）和聚合（aggregates）之间起协作和路由（coordinates and routes）消息作用的代码。最早被定义在Hector Garcia-Molina和Kenneth Salem的论文”<a href="http://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf" target="_blank" rel="external">Sagas</a>“中。这篇论文提出了一个saga机制来作为分布式事务的替代品以解决长时间运行的分布式事务（long-running process）的问题。这篇论文认为业务过程经常由很多步骤组成，每个步骤都涉及一个事务，如果将这些事务组成一个分布式事务，就可以实现总体一致（overall consistency）。</p>
 <h3 id="redux-saga-中几个抽象的概念："><a href="#redux-saga-中几个抽象的概念：" class="headerlink" title="redux-saga 中几个抽象的概念："></a>redux-saga 中几个抽象的概念：</h3><h4 id="Effect"><a href="#Effect" class="headerlink" title="Effect"></a>Effect</h4><p>Effect 是一个 javascript 对象，通过使用 <code>redux-saga/effects</code> 包里提供的函数来创建，里面包含描述异步操作（Side Effect）的信息，通过 yield 传达给 sagaMiddleware 执行, 我们可以把每一个 Effect 看成一道发送给 middleware 的指令。</p>
 <h4 id="Saga"><a href="#Saga" class="headerlink" title="Saga"></a>Saga</h4><p>所有的 Saga 都是由 Generator 函数实现，所做的实际上是通过组合 Effect，以实现所需的控制流。最简单的例子就是把 yield Effects 一个接一个地放置，就可以让 Effect 按顺序执行。</p>
-<h4 id="Task"><a href="#Task" class="headerlink" title="Task"></a>Task</h4><p>一个 task 就像是一个在后台运行的进程。在基于 redux-saga 的应用程序中，可以同时运行多个 task。通过 <code>fork</code> 函数来创建 task，同时可以使用 <code>cancel</code> 函数来结束 task.</p>
+<h4 id="Task"><a href="#Task" class="headerlink" title="Task"></a>Task</h4><p>一个 task 就像是一个在后台运行的进程。在基于 redux-saga 的应用程序中，可以同时运行多个 task。通过 <code>fork</code> 函数来创建 task，同时可以使用 <code>cancel</code> 函数来结束 task。</p>
 <h3 id="原生-redux-saga-的使用"><a href="#原生-redux-saga-的使用" class="headerlink" title="原生 redux-saga 的使用"></a>原生 redux-saga 的使用</h3><p>鉴于文档中有详细的解释，这里只做介绍，查看文档建议阅读<a href="https://redux-saga.github.io/redux-saga/index.html" target="_blank" rel="external">官方英文文档</a>，中文文档一是没有及时更新，导致一些内容在中文文档里没有，另外翻译的水平也不太行，有些地方甚至出现错误的翻译。</p>
 <h4 id="Effect-创建器"><a href="#Effect-创建器" class="headerlink" title="Effect 创建器"></a>Effect 创建器</h4><h5 id="put"><a href="#put" class="headerlink" title="put"></a>put</h5><p>作用和 redux 中的 dispatch 相同。</p>
 <p><code>yield put({ type: &#39;CLICK_BTN&#39; });</code></p>
@@ -50,16 +50,16 @@
 <ul>
 <li><p><em>Ps-1：在取消任务中出现嵌套的 saga 时，所有的 saga 都会被取消，即取消会向下传播，但未被捕获的错误不会向上冒泡。</em></p>
 </li>
-<li><p><em>Ps-2：取消任务时，saga 中的<code>try...finally</code> 代码块，<code>finally</code> 里的代码会照常执行</em></p>
+<li><p><em>Ps-2：取消任务时，saga 中的<code>try...finally</code> 代码块，<code>finally</code> 里的代码会照常执行。</em></p>
 </li>
-<li><p><em>Ps-3：<code>yield cancel(task)</code>是非阻塞的，因此任务一旦取消，就应当尽快完成其清理逻辑</em></p>
+<li><p><em>Ps-3：<code>yield cancel(task)</code>是非阻塞的，因此任务一旦取消，就应当尽快完成其清理逻辑。</em></p>
 </li>
 </ul>
 <h4 id="Effect-辅助函数"><a href="#Effect-辅助函数" class="headerlink" title="Effect 辅助函数"></a>Effect 辅助函数</h4><h5 id="takeEvery"><a href="#takeEvery" class="headerlink" title="takeEvery"></a>takeEvery</h5><p>监听（pulling）每个能匹配指定 pattern 的 action。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123; takeEvery &#125; <span class="keyword">from</span> <span class="string">'redux-saga'</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span>* <span class="title">watchFetchData</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">yield</span>* takeEvery(<span class="string">'FETCH_REQUESTED'</span>, fetchData)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h5 id="takeLatest"><a href="#takeLatest" class="headerlink" title="takeLatest"></a>takeLatest</h5><p>监听（pulling）最后一个能匹配指定 pattern 的 action，之前启动的任务如果正在执行中，则会被自动取消。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123; takeLatest &#125; <span class="keyword">from</span> <span class="string">'redux-saga'</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span>* <span class="title">watchFetchData</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">yield</span>* takeLatest(<span class="string">'FETCH_REQUESTED'</span>, fetchData)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h5 id="throttle"><a href="#throttle" class="headerlink" title="throttle"></a>throttle</h5><p>节流器。监听到一个匹配的 action 后，忽略一段时间内匹配到的其他 action，但是保留这段时间中最后一个匹配到的 action，<br><code>yield throttle(1000, &#39;FETCH_AUTOCOMPLETE&#39;, fetchAutocomplete)</code></p>
+<h5 id="throttle"><a href="#throttle" class="headerlink" title="throttle"></a>throttle</h5><p>节流器。监听到一个匹配的 action 后，忽略一段时间内匹配到的其他 action，但是保留这段时间中最后一个匹配到的 action。<br><code>yield throttle(1000, &#39;FETCH_AUTOCOMPLETE&#39;, fetchAutocomplete)</code></p>
 <h4 id="Effect-组合器（combinators）"><a href="#Effect-组合器（combinators）" class="headerlink" title="Effect 组合器（combinators）"></a>Effect 组合器（combinators）</h4><h5 id="race"><a href="#race" class="headerlink" title="race"></a>race</h5><p>在多个 Effect 之间执行一个 race（类似 <code>Promise.race([...])</code> 的行为）。</p>
 <p>下面的示例演示了触发一个远程的获取请求，并且限制了 1 秒内响应，否则作超时处理。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123; race, take, put &#125; <span class="keyword">from</span> <span class="string">'redux-saga/effects'</span></div><div class="line"><span class="keyword">import</span> &#123; delay &#125; <span class="keyword">from</span> <span class="string">'redux-saga'</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span>* <span class="title">fetchPostsWithTimeout</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">const</span> &#123;posts, timeout&#125; = <span class="keyword">yield</span> race(&#123;</div><div class="line">    <span class="attr">posts</span>: call(fetchApi, <span class="string">'/posts'</span>),</div><div class="line">    <span class="attr">timeout</span>: call(delay, <span class="number">1000</span>)</div><div class="line">  &#125;)</div><div class="line"></div><div class="line">  <span class="keyword">if</span> (posts)</div><div class="line">    put(&#123;<span class="attr">type</span>: <span class="string">'POSTS_RECEIVED'</span>, posts&#125;)</div><div class="line">  <span class="keyword">else</span></div><div class="line">    put(&#123;<span class="attr">type</span>: <span class="string">'TIMEOUT_ERROR'</span>&#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
