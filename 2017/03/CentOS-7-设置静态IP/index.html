@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="html,安全," />
+  <meta name="keywords" content="linux," />
 
 
 
@@ -86,28 +86,19 @@
 
 
 
-<meta name="description" content="问题的出现昨晚上用ESLint检查代码时,出现了这样一行错误：
-
-Using target=”_blank” without rel=”noopener noreferrer” is a security risk: see https://mathiasbynens.github.io/rel-noopener  react/jsx-no-target-blank
-
-当然加上rel=&amp;quot;">
+<meta name="description" content="编辑配置文件root@localhost:~# vim /etc/sysconfig/network-scripts/ifcfg-enp0s3
+修改以下配置项12345BOOTPROTO=&quot;static&quot; #dhcp改为static ONBOOT=&quot;yes&quot; #开机启用本配置IPADDR=192.168.5.192 #静态IPGATEWAY=192.168.4.1 #默认网关NETMASK=255">
 <meta property="og:type" content="article">
-<meta property="og:title" content="rel=noopener是什么">
-<meta property="og:url" content="https://liubin92.github.io/2017/03/rel-noopener是什么/index.html">
+<meta property="og:title" content="CentOS 7 设置静态IP">
+<meta property="og:url" content="https://liubin92.github.io/2017/03/CentOS-7-设置静态IP/index.html">
 <meta property="og:site_name" content="故事是这样的">
-<meta property="og:description" content="问题的出现昨晚上用ESLint检查代码时,出现了这样一行错误：
-
-Using target=”_blank” without rel=”noopener noreferrer” is a security risk: see https://mathiasbynens.github.io/rel-noopener  react/jsx-no-target-blank
-
-当然加上rel=&amp;quot;">
-<meta property="og:updated_time" content="2017-03-02T05:35:31.000Z">
+<meta property="og:description" content="编辑配置文件root@localhost:~# vim /etc/sysconfig/network-scripts/ifcfg-enp0s3
+修改以下配置项12345BOOTPROTO=&quot;static&quot; #dhcp改为static ONBOOT=&quot;yes&quot; #开机启用本配置IPADDR=192.168.5.192 #静态IPGATEWAY=192.168.4.1 #默认网关NETMASK=255">
+<meta property="og:updated_time" content="2017-04-18T09:06:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="rel=noopener是什么">
-<meta name="twitter:description" content="问题的出现昨晚上用ESLint检查代码时,出现了这样一行错误：
-
-Using target=”_blank” without rel=”noopener noreferrer” is a security risk: see https://mathiasbynens.github.io/rel-noopener  react/jsx-no-target-blank
-
-当然加上rel=&amp;quot;">
+<meta name="twitter:title" content="CentOS 7 设置静态IP">
+<meta name="twitter:description" content="编辑配置文件root@localhost:~# vim /etc/sysconfig/network-scripts/ifcfg-enp0s3
+修改以下配置项12345BOOTPROTO=&quot;static&quot; #dhcp改为static ONBOOT=&quot;yes&quot; #开机启用本配置IPADDR=192.168.5.192 #静态IPGATEWAY=192.168.4.1 #默认网关NETMASK=255">
 
 
 
@@ -135,13 +126,13 @@ Using target=”_blank” without rel=”noopener noreferrer” is a security ri
 
 
 
-  <link rel="canonical" href="https://liubin92.github.io/2017/03/rel-noopener是什么/"/>
+  <link rel="canonical" href="https://liubin92.github.io/2017/03/CentOS-7-设置静态IP/"/>
 
 
 
 
 
-  <title> rel=noopener是什么 | 故事是这样的 </title>
+  <title> CentOS 7 设置静态IP | 故事是这样的 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -264,7 +255,7 @@ Using target=”_blank” without rel=”noopener noreferrer” is a security ri
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/03/rel-noopener是什么/">
+  <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/03/CentOS-7-设置静态IP/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="liubin">
@@ -288,7 +279,7 @@ Using target=”_blank” without rel=”noopener noreferrer” is a security ri
             
             
               
-                rel=noopener是什么
+                CentOS 7 设置静态IP
               
             
           </h1>
@@ -303,8 +294,8 @@ Using target=”_blank” without rel=”noopener noreferrer” is a security ri
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-02T10:38:03+08:00">
-                2017-03-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-19T17:24:01+08:00">
+                2017-03-19
               </time>
             
 
@@ -326,8 +317,8 @@ Using target=”_blank” without rel=”noopener noreferrer” is a security ri
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
+                  <a href="/categories/linux笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">linux笔记</span>
                   </a>
                 </span>
 
@@ -359,34 +350,11 @@ Using target=”_blank” without rel=”noopener noreferrer” is a security ri
       
 
       
-        <h2 id="问题的出现"><a href="#问题的出现" class="headerlink" title="问题的出现"></a>问题的出现</h2><p>昨晚上用<a href="http://eslint.org/" target="_blank" rel="external">ESLint</a>检查代码时,出现了这样一行错误：</p>
-<blockquote>
-<p>Using target=”_blank” without rel=”noopener noreferrer” is a security risk: see <a href="https://mathiasbynens.github.io/rel-noopener" target="_blank" rel="external">https://mathiasbynens.github.io/rel-noopener</a>  react/jsx-no-target-blank</p>
-</blockquote>
-<p>当然加上<code>rel=&quot;noopener noreferrer&quot;</code>之后报错就没有了，可问题是：<strong>what’s this?</strong></p>
-<h2 id="关于rel"><a href="#关于rel" class="headerlink" title="关于rel"></a>关于rel</h2><p>rel是relationship的缩写，用于指定当前文档与href链接的文档的关系（顺便一说，rev属性已在HTML5中废弃）。<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/a" target="_blank" rel="external">MDN</a>中如此描述：</p>
-<blockquote>
-<p><strong>rel</strong></p>
-<p>对于锚点来说，rel具有href的属性， 该属性指定了目标对象到链接对象的关系。该值是空格分隔的列表关系值。 该值和语义可能将会被一些权威文档编者赋予不同的含义。 在默认的情况下，如果没有其它定义，是无效的，只有在 href 存在的情况下，使用该属性。</p>
-</blockquote>
-<p>并且在<code>target</code>属性后面写到：</p>
-<blockquote>
-<p><strong>注意：</strong>使用target时，考虑添加 rel=”noopener norefferrer” 以防止针对 window.opener API 的恶意行为。</p>
-</blockquote>
-<p>由此看来，写上这条属性的好处首先是让链接的语义更加明确，语义明确后，自然是搜索引擎友好，然后还可以提升网页的安全性。</p>
-<h2 id="问题究竟是什么"><a href="#问题究竟是什么" class="headerlink" title="问题究竟是什么"></a>问题究竟是什么</h2><p>关于<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/opener" target="_blank" rel="external">window.opener</a>，MDN里有这么一句：</p>
-<blockquote>
-<p><strong>备注</strong></p>
-<p>如果当前窗口是由另一个窗口打开的, window.opener保留了那个窗口的引用. 如果当前窗口不是由其他窗口打开的, 则该属性返回 null.</p>
-</blockquote>
-<p>我想问题大概就是在这里吧，链接到信任的站点自然可以灵活地使用，可是一旦链接到钓鱼网站，这个网站可以做什么你总是难以预料。<strong>但总的来说，这种行为的潜在风险是远远大于好处的。</strong></p>
-<h2 id="接下来该怎么做"><a href="#接下来该怎么做" class="headerlink" title="接下来该怎么做"></a>接下来该怎么做</h2><p>对于<code>rel=&quot;noopener&quot;</code>这个属性，在Chrome 49+、Opera 36+中可以将window.opener设置为null，但如果浏览器是比较老的版本，实际上要使用<code>rel=&quot;noopener norefferrer&quot;</code>去完整覆盖，将HTTP头部Referer属性也禁用掉。</p>
-<p>其实我个人还是偏向于听从最开始那篇文章里的建议:</p>
-<blockquote>
-<p>Don’t use target=_blank (or any other target that opens a new navigation context), especially for links in user-generated content, unless you have <a href="https://css-tricks.com/use-target_blank/" target="_blank" rel="external">a good reason to</a>.</p>
-</blockquote>
-<p>所以说，尤其是网站用来对外提供给用户使用的情况下，请不要低估这个问题，更没有理由去忽视这个问题。</p>
-
+        <h2 id="编辑配置文件"><a href="#编辑配置文件" class="headerlink" title="编辑配置文件"></a>编辑配置文件</h2><p><code>root@localhost:~# vim /etc/sysconfig/network-scripts/ifcfg-enp0s3</code></p>
+<h2 id="修改以下配置项"><a href="#修改以下配置项" class="headerlink" title="修改以下配置项"></a>修改以下配置项</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">BOOTPROTO=<span class="string">"static"</span> <span class="comment">#dhcp改为static </span></div><div class="line">ONBOOT=<span class="string">"yes"</span> <span class="comment">#开机启用本配置</span></div><div class="line">IPADDR=192.168.5.192 <span class="comment">#静态IP</span></div><div class="line">GATEWAY=192.168.4.1 <span class="comment">#默认网关</span></div><div class="line">NETMASK=255.255.252.0 <span class="comment">#子网掩码</span></div></pre></td></tr></table></figure>
+<h2 id="修改后的配置"><a href="#修改后的配置" class="headerlink" title="修改后的配置"></a>修改后的配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">root@localhost:~<span class="comment"># cat /etc/sysconfig/network-scripts/ifcfg-enp0s3</span></div><div class="line">TYPE=<span class="string">"Ethernet"</span></div><div class="line">BOOTPROTO=<span class="string">"static"</span></div><div class="line">DEFROUTE=<span class="string">"yes"</span></div><div class="line">PEERDNS=<span class="string">"yes"</span></div><div class="line">PEERROUTES=<span class="string">"yes"</span></div><div class="line">IPV4_FAILURE_FATAL=<span class="string">"no"</span></div><div class="line">IPV6INIT=<span class="string">"yes"</span></div><div class="line">IPV6_AUTOCONF=<span class="string">"yes"</span></div><div class="line">IPV6_DEFROUTE=<span class="string">"yes"</span></div><div class="line">IPV6_PEERDNS=<span class="string">"yes"</span></div><div class="line">IPV6_PEERROUTES=<span class="string">"yes"</span></div><div class="line">IPV6_FAILURE_FATAL=<span class="string">"no"</span></div><div class="line">IPV6_ADDR_GEN_MODE=<span class="string">"stable-privacy"</span></div><div class="line">NAME=<span class="string">"enp0s3"</span></div><div class="line">UUID=<span class="string">"9281a4f6-b04e-4007-8af0-b05a69e6a5aa"</span></div><div class="line">DEVICE=<span class="string">"enp0s3"</span></div><div class="line">ONBOOT=<span class="string">"yes"</span></div><div class="line">IPADDR=192.168.5.192</div><div class="line">GATEWAY=192.168.4.1</div><div class="line">NETMASK=255.255.252.0</div></pre></td></tr></table></figure>
+<h2 id="重启网络服务"><a href="#重启网络服务" class="headerlink" title="重启网络服务:"></a>重启网络服务:</h2><p><code>root@localhost:~# service network restart</code></p>
+<h2 id="查看修改后的网络信息"><a href="#查看修改后的网络信息" class="headerlink" title="查看修改后的网络信息:"></a>查看修改后的网络信息:</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">root@localhost:~<span class="comment"># ip addr</span></div><div class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN qlen 1</div><div class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</div><div class="line">    inet 127.0.0.1/8 scope host lo</div><div class="line">       valid_lft forever preferred_lft forever</div><div class="line">    inet6 ::1/128 scope host</div><div class="line">       valid_lft forever preferred_lft forever</div><div class="line">2: enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP qlen 1000</div><div class="line">    link/ether 08:00:27:79:22:ab brd ff:ff:ff:ff:ff:ff</div><div class="line">    inet 192.168.5.192/22 brd 192.168.7.255 scope global enp0s3</div><div class="line">       valid_lft forever preferred_lft forever</div><div class="line">    inet6 fe80::3723:8466:a91:<span class="built_in">fc</span>59/64 scope link</div><div class="line">       valid_lft forever preferred_lft forever</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -409,9 +377,7 @@ Using target=”_blank” without rel=”noopener noreferrer” is a security ri
       
         <div class="post-tags">
           
-            <a href="/tags/html/" rel="tag"># html</a>
-          
-            <a href="/tags/安全/" rel="tag"># 安全</a>
+            <a href="/tags/linux/" rel="tag"># linux</a>
           
         </div>
       
@@ -420,8 +386,8 @@ Using target=”_blank” without rel=”noopener noreferrer” is a security ri
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/常用正则表达式大全/" rel="next" title="常用正则表达式大全">
-                <i class="fa fa-chevron-left"></i> 常用正则表达式大全
+              <a href="/2017/03/rel-noopener是什么/" rel="next" title="rel=noopener是什么">
+                <i class="fa fa-chevron-left"></i> rel=noopener是什么
               </a>
             
           </div>
@@ -430,8 +396,8 @@ Using target=”_blank” without rel=”noopener noreferrer” is a security ri
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/CentOS-7-设置静态IP/" rel="prev" title="CentOS 7 设置静态IP">
-                CentOS 7 设置静态IP <i class="fa fa-chevron-right"></i>
+              <a href="/2017/03/查看当前环境虚拟技术-bash-profile立即生效方式/" rel="prev" title="查看当前环境虚拟技术 & .bash_profile立即生效方式">
+                查看当前环境虚拟技术 & .bash_profile立即生效方式 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -569,7 +535,7 @@ Using target=”_blank” without rel=”noopener noreferrer” is a security ri
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题的出现"><span class="nav-number">1.</span> <span class="nav-text">问题的出现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于rel"><span class="nav-number">2.</span> <span class="nav-text">关于rel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题究竟是什么"><span class="nav-number">3.</span> <span class="nav-text">问题究竟是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接下来该怎么做"><span class="nav-number">4.</span> <span class="nav-text">接下来该怎么做</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#编辑配置文件"><span class="nav-number">1.</span> <span class="nav-text">编辑配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改以下配置项"><span class="nav-number">2.</span> <span class="nav-text">修改以下配置项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改后的配置"><span class="nav-number">3.</span> <span class="nav-text">修改后的配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重启网络服务"><span class="nav-number">4.</span> <span class="nav-text">重启网络服务:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看修改后的网络信息"><span class="nav-number">5.</span> <span class="nav-text">查看修改后的网络信息:</span></a></li></ol></div>
             
 
           </div>
