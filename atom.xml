@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://liubin92.github.io/"/>
-  <updated>2017-04-18T10:47:45.000Z</updated>
+  <updated>2017-04-20T03:19:31.000Z</updated>
   <id>https://liubin92.github.io/</id>
   
   <author>
@@ -20,13 +20,13 @@
     <link href="https://liubin92.github.io/2017/04/linux%E7%9A%84du%E5%92%8Cdf%E5%91%BD%E4%BB%A4/"/>
     <id>https://liubin92.github.io/2017/04/linux的du和df命令/</id>
     <published>2017-04-18T09:07:14.000Z</published>
-    <updated>2017-04-18T10:47:45.000Z</updated>
+    <updated>2017-04-20T03:19:31.000Z</updated>
     
-    <content type="html"><![CDATA[<p>今天如往常一样完成一个功能后，把代码推到测试环境，结果 response 有点跟往常不一样：</p>
+    <content type="html"><![CDATA[<h2 id="这是4月18号的流水账"><a href="#这是4月18号的流水账" class="headerlink" title="这是4月18号的流水账"></a>这是4月18号的流水账</h2><p>今天如往常一样完成一个功能后，把代码推到测试环境，结果 response 有点跟往常不一样：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">liubin@localhost:~<span class="comment"># git push test branch</span></div><div class="line">Counting objects: 18, done.</div><div class="line">Delta compression using up to 4 threads.</div><div class="line">Compressing objects: 100% (16/16), done.</div><div class="line">Writing objects: 100% (18/18), 2.12 KiB | 0 bytes/s, done.</div><div class="line">Total 18 (delta 11), reused 0 (delta 0)</div><div class="line">remote: error: file write error (No space left on device)</div><div class="line">remote: fatal: unable to write sha1 file</div><div class="line">error: unpack failed: unpack-objects abnormal <span class="built_in">exit</span></div><div class="line">To csrtest:/var/gitlab/test.git</div><div class="line"> ! [remote rejected]   branch -&gt; branch (unpacker error)</div><div class="line">error: failed to push some refs to <span class="string">'git@test:/var/gitlab/test.git'</span></div></pre></td></tr></table></figure>
-<a id="more"></a>
 <p>No space left on device. 意思是测试服务器上没空了呗，上去看一下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">liubin@<span class="built_in">test</span>:~<span class="comment"># df -h</span></div><div class="line">Filesystem      Size  Used Avail Use% Mounted on</div><div class="line">/dev/vda2       289G  274G   16M 100% /</div><div class="line">tmpfs           939M     0  939M   0% /dev/shm</div><div class="line">/dev/vda1       985M   93M  842M  10% /boot</div><div class="line">/dev/vda3       203G  188M  193G   1% /data</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>果不其然，那应该是缓存文件太多了，去缓存目录看一下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">liubin@<span class="built_in">test</span>:~<span class="comment"># du -sh</span></div><div class="line">184G</div></pre></td></tr></table></figure>
 <p>那清一清吧。</p>
@@ -34,15 +34,39 @@
 <p>清完然后就好使了。</p>
 <p>可是清完后跟之前的数有点对不大上：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">liubin@<span class="built_in">test</span>:~<span class="comment"># df -h</span></div><div class="line">Filesystem      Size  Used Avail Use% Mounted on</div><div class="line">/dev/vda2       289G  208G   66G  76% /</div><div class="line">tmpfs           939M     0  939M   0% /dev/shm</div><div class="line">/dev/vda1       985M   93M  842M  10% /boot</div><div class="line">/dev/vda3       203G  188M  193G   1% /data</div></pre></td></tr></table></figure>
-<p>我猜可能是虚拟机的存储管理机制的缘故，物理机出现这种情况的话那才奇了怪了，不过我也没兴趣继续深究这个问题。</p>
-<p>就是记一次流水账，非科普。</p>
+<p><del>我猜可能是虚拟机的存储管理机制的缘故，物理机出现这种情况的话那才奇了怪了，不过我也没兴趣继续深究这个问题。</del></p>
+<p><del>就是记一次流水账，非科普。</del></p>
 <p>需要科普可以去查 <a href="http://man.linuxde.net/" target="_blank" rel="external">Linux命令大全</a>。</p>
+<h2 id="以下是4月19号的补充"><a href="#以下是4月19号的补充" class="headerlink" title="以下是4月19号的补充"></a>以下是4月19号的补充</h2><p>本以为今天和往常一样，结果跟昨天一样。</p>
+<p><strong><em>测试服务器磁盘又满了。</em></strong></p>
+<p>隐约觉得应该是哪儿溢出了，<code>top</code> 一下果然 php 进程始终99%，又看了下php进程，有一个执行后台计算的脚本，从4月17号下午就已经存在了，<code>sudo kill -9</code> 了之后，结果 <code>df -h</code> 对上了！</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">liubin@<span class="built_in">test</span>:~<span class="comment"># df -h</span></div><div class="line">Filesystem      Size  Used Avail Use% Mounted on</div><div class="line">/dev/vda2       289G   91G  184G  34% /</div><div class="line">tmpfs           939M     0  939M   0% /dev/shm</div><div class="line">/dev/vda1       985M   93M  842M  10% /boot</div><div class="line">/dev/vda3       203G  188M  193G   1% /data</div></pre></td></tr></table></figure>
+<p>然后把那个“溢出”的进程在本地复现了之后，想起了昨天的那句：</p>
+<blockquote>
+<p>物理机出现这种情况的话那才奇了怪了。</p>
+</blockquote>
+<p>所以说，还是看看怎么给虚拟机平反吧。毕竟，真相只有一个！</p>
+<p>果不其然，一查就找到了真相，有以下三种情况：</p>
+<blockquote>
+<p><strong>1.预留空间</strong></p>
+<p>为了预防紧急情况，linux ext文件系统会预留部分硬盘空间，具体预留的数值可以通过 <code>tune2fs -l [dev_name] | grep &quot;Reserved block count&quot;</code> 查看到（dev_name是设备名），这里预留的空间会被 <code>df</code> 计算到已用空间中，从而导致 <code>df</code> 和 <code>du</code> 统计不一致。如果需要调整预留空间大小，我们可以使用<code>tune2fs -m [size] [dev_name]</code> 来进行调整。</p>
+<p><strong>2.幻影文件(phantom file)</strong></p>
+<p><code>du</code>是统计被文件系统记录到的每个文件的大小，然后进行累加得到的大小，这是通过文件系统获取到的。而 <code>df</code> 主要是从超级块（superblock）中读入硬盘使用信息， <code>df</code> 获取到的是磁盘块被使用的情况。当一个文件被删除时，如果有别的进程正在使用它（占有句柄），<br> 这个文件将不会被 <code>du</code> 统计到，但是这个文件被占用的磁盘空间却依然会被 <code>df</code> 统计到。这些文件，以及正在使用这些文件的进程可以通过 <code>lsof | grep deleted</code> 查到。当进程停止或者被 kill 时，这些空间将被释放。</p>
+<p><strong>3.未统计到的文件</strong></p>
+<p>如果上面两种情况都排除了，但是数据还是不一致，那是怎么回事？这里隐藏着一种情况：当我们将一个目录挂在到一个新的设备（硬盘）上之前，如果这个目录里面已经有数据，那么这一部分数据不会被 <code>du</code> 感知，在文件系统中也看不到这些数据，但是这些数据又是确实占用了磁盘空间，是能够被 <code>df</code> 所统计到的。这时候通过 <code>du</code> / <code>df</code> 统计原设备的空间使用情况，就会发现 <code>df</code> 统计到的比 <code>du</code> 要多。遇到这样的情况时，使用 <code>fuser
+ -km [directory]</code> 杀死占用该目录的所有进程（小心操作！），然后使用 <code>umount [directory]</code> 将该目录挂载的设备卸载，这时，目录里面原来已有的数据就会出现，我们将其删除之后，再重新挂载设备（<code>mount -t [type] [dev] [directory]</code>）即可。</p>
+</blockquote>
+<p>而发生在我这里的就是第二种情况，文件被删除后，句柄还在被进程占用着，所以导致 <code>du</code> 和 <code>df</code> 意见不统一，kill 掉占用进程后，统计结果就一致了。</p>
+<p>本想写篇流水账凑数，结果还是被强行 push 到探索真相的道路上。</p>
+<h2 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h2><p>上面说那个“溢出”的进程加引号的原因是，表面上看起来像是溢出的进程，其实是产品经理那天添加了一个计算结果超过100亿行的计算任务，可能等了半天也没见出结果，就把那条记录给删掉了… 然后测试机就一两核 cpu &amp; 2G 内存的虚拟机，两天也没运行完，所以就造成了看似溢出的假象。</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;今天如往常一样完成一个功能后，把代码推到测试环境，结果 response 有点跟往常不一样：&lt;/p&gt;
+      &lt;h2 id=&quot;这是4月18号的流水账&quot;&gt;&lt;a href=&quot;#这是4月18号的流水账&quot; class=&quot;headerlink&quot; title=&quot;这是4月18号的流水账&quot;&gt;&lt;/a&gt;这是4月18号的流水账&lt;/h2&gt;&lt;p&gt;今天如往常一样完成一个功能后，把代码推到测试环境，结果 response 有点跟往常不一样：&lt;/p&gt;
 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;liubin@localhost:~&lt;span class=&quot;comment&quot;&gt;# git push test branch&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;Counting objects: 18, done.&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;Delta compression using up to 4 threads.&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;Compressing objects: 100% (16/16), done.&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;Writing objects: 100% (18/18), 2.12 KiB | 0 bytes/s, done.&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;Total 18 (delta 11), reused 0 (delta 0)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;remote: error: file write error (No space left on device)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;remote: fatal: unable to write sha1 file&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;error: unpack failed: unpack-objects abnormal &lt;span class=&quot;built_in&quot;&gt;exit&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;To csrtest:/var/gitlab/test.git&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; ! [remote rejected]   branch -&amp;gt; branch (unpacker error)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;error: failed to push some refs to &lt;span class=&quot;string&quot;&gt;&#39;git@test:/var/gitlab/test.git&#39;&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;No space left on device. 意思是测试服务器上没空了呗，上去看一下：&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;liubin@&lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt;:~&lt;span class=&quot;comment&quot;&gt;# df -h&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;Filesystem      Size  Used Avail Use% Mounted on&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;/dev/vda2       289G  274G   16M 100% /&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;tmpfs           939M     0  939M   0% /dev/shm&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;/dev/vda1       985M   93M  842M  10% /boot&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;/dev/vda3       203G  188M  193G   1% /data&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     
