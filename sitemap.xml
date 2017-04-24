@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://liubin92.github.io/2017/03/CentOS-7-%E4%B8%AD%E9%9D%99%E6%80%81-IP-%E4%BB%A5%E5%8F%8A-DNS-%E7%9A%84%E9%85%8D%E7%BD%AE/</loc>
+    
+    <lastmod>2017-04-24T07:34:01.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://liubin92.github.io/2017/04/linux%E7%9A%84du%E5%92%8Cdf%E5%91%BD%E4%BB%A4/</loc>
     
-    <lastmod>2017-04-20T03:19:31.000Z</lastmod>
+    <lastmod>2017-04-20T05:48:20.000Z</lastmod>
     
   </url>
   
@@ -12,13 +19,6 @@
     <loc>https://liubin92.github.io/2017/01/hello-world/</loc>
     
     <lastmod>2017-04-18T10:56:15.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://liubin92.github.io/2017/03/CentOS-7-%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP/</loc>
-    
-    <lastmod>2017-04-18T10:52:57.000Z</lastmod>
     
   </url>
   
