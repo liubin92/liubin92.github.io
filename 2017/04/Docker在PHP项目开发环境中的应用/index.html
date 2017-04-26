@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="转载,docker,php," />
+  <meta name="keywords" content="docker,转载,php," />
 
 
 
@@ -113,7 +113,7 @@ Web程序：PHP + Node
 缓存服务：Redis + Memcache
 前端构建工具：npm + bower + gulp
 PHP CLI工具：Composer + PHP">
-<meta property="og:updated_time" content="2017-04-26T02:36:05.000Z">
+<meta property="og:updated_time" content="2017-04-26T02:38:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker在PHP项目开发环境中的应用">
 <meta name="twitter:description" content="环境部署是所有团队都必须面对的问题，随着系统越来越大，依赖的服务也越来越多，比如我们目前的一个项目就会用到：
@@ -368,6 +368,7 @@ PHP CLI工具：Composer + PHP">
 <p>对于问题1，可以用<a href="https://www.vagrantup.com/" target="_blank" rel="external">Vagrant</a>这样的基于虚拟机的项目来解决，团队成员共享一套开发环境镜像。对于问题2，可以引入类似<a href="https://github.com/phpbrew/phpbrew" target="_blank" rel="external">PHPBrew</a>这样的多版本PHP管理工具来解决。但两者都不能很好地解决问题3，因为虚拟机镜像没有版本管理的概念，当多人维护一个镜像时，很容易出现配置遗漏或者冲突，一个很大的镜像传输起来也不方便。</p>
 <p>Docker的出现让上面的问题有了更好的解决方案，虽然个人对于Docker大规模应用到生产环境还持谨慎态度，但如果仅仅考虑测试及开发，私以为Docker的容器化理念已经是能真正解决环境部署问题的银弹了。</p>
 <p>下面介绍<a href="http://avnpc.com/pages/build-php-develop-env-by-docker" target="_blank" rel="external">Docker构建PHP项目开发环境</a>过程中的演进，本文中假设你的操作系统为Linux，已经安装了Docker，并且已经了解<a href="https://www.docker.com/whatisdocker/" target="_blank" rel="external">Docker是什么</a>，以及<a href="https://docs.docker.com/userguide/" target="_blank" rel="external">Docker命令行的基础使用</a>，如果没有这些背景知识建议先自行了解。</p>
+<a id="more"></a>
 <h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><p>首先还是从一个PHP在Docker容器下的Hello World实例开始。我们准备这样一个PHP文件<code>index.php</code>：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="php"><span class="meta">&lt;?php</span></span></div><div class="line"><span class="keyword">echo</span> <span class="string">"PHP in Docker"</span>;</div></pre></td></tr></table></figure>
 <p>然后在同目录下创建文本文件并命名为<code>Dockerfile</code>，内容为：</p>
@@ -485,9 +486,9 @@ docker run -p 9000:9000 -v ~/opt:/opt -it eva/php
       
         <div class="post-tags">
           
-            <a href="/tags/转载/" rel="tag"># 转载</a>
-          
             <a href="/tags/docker/" rel="tag"># docker</a>
+          
+            <a href="/tags/转载/" rel="tag"># 转载</a>
           
             <a href="/tags/php/" rel="tag"># php</a>
           
