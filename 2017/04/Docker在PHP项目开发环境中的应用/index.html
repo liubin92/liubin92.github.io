@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="liubin92, github" />
+  <meta name="keywords" content="转载,docker,php," />
 
 
 
@@ -89,15 +89,43 @@
 
 
 
-<meta name="description" content="In fact, I was an actor.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="故事是这样的">
-<meta property="og:url" content="https://liubin92.github.io/index.html">
+<meta name="description" content="环境部署是所有团队都必须面对的问题，随着系统越来越大，依赖的服务也越来越多，比如我们目前的一个项目就会用到：
+
+Web服务器：Nginx
+Web程序：PHP + Node
+数据库：MySQL
+搜索引擎：ElasticSearch
+队列服务：Gearman
+缓存服务：Redis + Memcache
+前端构建工具：npm + bower + gulp
+PHP CLI工具：Composer + PHP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker在PHP项目开发环境中的应用">
+<meta property="og:url" content="https://liubin92.github.io/2017/04/Docker在PHP项目开发环境中的应用/index.html">
 <meta property="og:site_name" content="故事是这样的">
-<meta property="og:description" content="In fact, I was an actor.">
+<meta property="og:description" content="环境部署是所有团队都必须面对的问题，随着系统越来越大，依赖的服务也越来越多，比如我们目前的一个项目就会用到：
+
+Web服务器：Nginx
+Web程序：PHP + Node
+数据库：MySQL
+搜索引擎：ElasticSearch
+队列服务：Gearman
+缓存服务：Redis + Memcache
+前端构建工具：npm + bower + gulp
+PHP CLI工具：Composer + PHP">
+<meta property="og:updated_time" content="2017-04-26T02:36:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="故事是这样的">
-<meta name="twitter:description" content="In fact, I was an actor.">
+<meta name="twitter:title" content="Docker在PHP项目开发环境中的应用">
+<meta name="twitter:description" content="环境部署是所有团队都必须面对的问题，随着系统越来越大，依赖的服务也越来越多，比如我们目前的一个项目就会用到：
+
+Web服务器：Nginx
+Web程序：PHP + Node
+数据库：MySQL
+搜索引擎：ElasticSearch
+队列服务：Gearman
+缓存服务：Redis + Memcache
+前端构建工具：npm + bower + gulp
+PHP CLI工具：Composer + PHP">
 
 
 
@@ -125,13 +153,13 @@
 
 
 
-  <link rel="canonical" href="https://liubin92.github.io/"/>
+  <link rel="canonical" href="https://liubin92.github.io/2017/04/Docker在PHP项目开发环境中的应用/"/>
 
 
 
 
 
-  <title> 故事是这样的 </title>
+  <title> Docker在PHP项目开发环境中的应用 | 故事是这样的 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -156,9 +184,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -251,9 +277,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -283,10 +309,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2017/04/Docker在PHP项目开发环境中的应用/" itemprop="url">
-                  Docker在PHP项目开发环境中的应用
-                </a>
+                Docker在PHP项目开发环境中的应用
               
             
           </h1>
@@ -325,9 +348,7 @@
       
 
       
-        
-          
-            <p>环境部署是所有团队都必须面对的问题，随着系统越来越大，依赖的服务也越来越多，比如我们目前的一个项目就会用到：</p>
+        <p>环境部署是所有团队都必须面对的问题，随着系统越来越大，依赖的服务也越来越多，比如我们目前的一个项目就会用到：</p>
 <ul>
 <li>Web服务器：Nginx</li>
 <li>Web程序：PHP + Node</li>
@@ -436,866 +457,76 @@ docker run -p 9000:9000 -v ~/opt:/opt -it eva/php
 <p>经过团队实践，原本大概需要1天时间的环境安装，切换到Docker后只需要运行10余条指令，时间也大幅缩短到3小时以内（大部分时间是在等待下载），最重要的是Docker所构建的环境都是100%一致的，不会有人为失误引起的问题。未来我们会进一步将Docker应用到CI以及生产环境中。</p>
 <p><em>原文地址：<a href="http://avnpc.com/pages/build-php-develop-env-by-docker" target="_blank" rel="external">Docker构建PHP项目开发环境</a></em></p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <div>
+      
+        
+
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/04/linux的du和df命令/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="liubin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="故事是这样的">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/04/linux的du和df命令/" itemprop="url">
-                  linux的du和df命令
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/转载/" rel="tag"># 转载</a>
           
-
+            <a href="/tags/docker/" rel="tag"># docker</a>
           
+            <a href="/tags/php/" rel="tag"># php</a>
           
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
         
-          <h2 id="这是4月18号的流水账"><a href="#这是4月18号的流水账" class="headerlink" title="这是4月18号的流水账"></a>这是4月18号的流水账</h2><p>今天如往常一样完成一个功能后，把代码推到测试环境，结果 response 有点跟往常不一样：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">liubin@localhost:~<span class="comment"># git push test branch</span></div><div class="line">Counting objects: 18, done.</div><div class="line">Delta compression using up to 4 threads.</div><div class="line">Compressing objects: 100% (16/16), done.</div><div class="line">Writing objects: 100% (18/18), 2.12 KiB | 0 bytes/s, done.</div><div class="line">Total 18 (delta 11), reused 0 (delta 0)</div><div class="line">remote: error: file write error (No space left on device)</div><div class="line">remote: fatal: unable to write sha1 file</div><div class="line">error: unpack failed: unpack-objects abnormal <span class="built_in">exit</span></div><div class="line">To csrtest:/var/gitlab/test.git</div><div class="line"> ! [remote rejected]   branch -&gt; branch (unpacker error)</div><div class="line">error: failed to push some refs to <span class="string">'git@test:/var/gitlab/test.git'</span></div></pre></td></tr></table></figure>
-<p>No space left on device. 意思是测试服务器上没空了呗，上去看一下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">liubin@<span class="built_in">test</span>:~<span class="comment"># df -h</span></div><div class="line">Filesystem      Size  Used Avail Use% Mounted on</div><div class="line">/dev/vda2       289G  274G   16M 100% /</div><div class="line">tmpfs           939M     0  939M   0% /dev/shm</div><div class="line">/dev/vda1       985M   93M  842M  10% /boot</div><div class="line">/dev/vda3       203G  188M  193G   1% /data</div></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/04/linux的du和df命令/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/linux的du和df命令/" rel="next" title="linux的du和df命令">
+                <i class="fa fa-chevron-left"></i> linux的du和df命令
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
+          <span class="post-nav-divider"></span>
 
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/04/redux-saga实践总结及其高级功能在dvajs中的应用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="liubin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="故事是这样的">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+          <div class="post-nav-prev post-nav-item">
             
-            
-              
-                
-                <a class="post-title-link" href="/2017/04/redux-saga实践总结及其高级功能在dvajs中的应用/" itemprop="url">
-                  redux-saga实践总结及其高级功能在dvajs中的应用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="选择-dvajs"><a href="#选择-dvajs" class="headerlink" title="选择 dvajs"></a>选择 dvajs</h2><p>最近一直忙于公司产品的前端重构，因为之前学习和接触的东西一直以后端为主，使用的语言又是以 PHP 为主，所以对于前端开发使用的语言 ES6 的代码规范和编程风格不太熟悉，对于前端工程化的经验也是几乎为零。虽然 leader 给了充足的学习时间和强大的技术支持，但写代码的就我自己。于是乎我就选择了 <strong>antd+dvajs</strong>，一来框架作者提供的 Demo 可以让我去学习前端的设计思想和代码的编写规范，二来我不需要耗费过多的精力去搭建整个项目的生态。站在巨人的肩上，才能更好更快地拥抱 <strong>react/redux</strong> 全家桶。</p>
-<h2 id="redux-saga"><a href="#redux-saga" class="headerlink" title="redux-saga"></a>redux-saga</h2><h3 id="什么是-saga"><a href="#什么是-saga" class="headerlink" title="什么是 saga"></a>什么是 saga</h3><p>Saga这个名词常被用在CQRS的讨论中，它是指一段在限定上下文（bounded contexts）和聚合（aggregates）之间起协作和路由（coordinates and routes）消息作用的代码。最早被定义在Hector Garcia-Molina和Kenneth Salem的论文”<a href="http://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf">Sagas</a>“中。这篇论文提出了一个saga机制来作为分布式事务的替代品以解决长时间运行的分布式事务（long-running process）的问题。这篇论文认为业务过程经常由很多步骤组成，每个步骤都涉及一个事务，如果将这些事务组成一个分布式事务，就可以实现总体一致（overall consistency）。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/04/redux-saga实践总结及其高级功能在dvajs中的应用/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/03/查看当前环境虚拟技术-bash-profile立即生效方式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="liubin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="故事是这样的">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/查看当前环境虚拟技术-bash-profile立即生效方式/" itemprop="url">
-                  查看当前环境虚拟技术 & .bash_profile立即生效方式
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h2 id="Easy-way-to-determine-virtualization-technology"><a href="#Easy-way-to-determine-virtualization-technology" class="headerlink" title="Easy way to determine virtualization technology"></a>Easy way to determine virtualization technology</h2><p><code>dmidecode -s system-product-name</code></p>
-<h3 id="Virtualization-technolgies"><a href="#Virtualization-technolgies" class="headerlink" title="Virtualization technolgies"></a>Virtualization technolgies</h3><h4 id="VMware-Workstation"><a href="#VMware-Workstation" class="headerlink" title="VMware Workstation"></a>VMware Workstation</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">root@localhost:~<span class="comment"># dmidecode -s system-product-name</span></div><div class="line">VMware Virtual Platform</div></pre></td></tr></table></figure>
-<h4 id="VirtualBox"><a href="#VirtualBox" class="headerlink" title="VirtualBox"></a>VirtualBox</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">root@localhost:~<span class="comment"># dmidecode -s system-product-name</span></div><div class="line">VirtualBox</div></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/查看当前环境虚拟技术-bash-profile立即生效方式/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/03/CentOS-7-中静态-IP-以及-DNS-的配置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="liubin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="故事是这样的">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/CentOS-7-中静态-IP-以及-DNS-的配置/" itemprop="url">
-                  CentOS 7 中静态 IP 以及 DNS 的配置
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="设置静态-IP"><a href="#设置静态-IP" class="headerlink" title="设置静态 IP"></a>设置静态 IP</h2><h3 id="编辑配置文件"><a href="#编辑配置文件" class="headerlink" title="编辑配置文件"></a>编辑配置文件</h3><p><code>root@localhost:~# vim /etc/sysconfig/network-scripts/ifcfg-enp0s3</code></p>
-<h3 id="修改以下配置项"><a href="#修改以下配置项" class="headerlink" title="修改以下配置项"></a>修改以下配置项</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">BOOTPROTO=<span class="string">"static"</span> <span class="comment">#dhcp改为static </span></div><div class="line">ONBOOT=<span class="string">"yes"</span> <span class="comment">#开机启用本配置</span></div><div class="line">IPADDR=192.168.5.192 <span class="comment">#静态IP</span></div><div class="line">GATEWAY=192.168.4.1 <span class="comment">#默认网关</span></div><div class="line">NETMASK=255.255.252.0 <span class="comment">#子网掩码</span></div></pre></td></tr></table></figure>
-<h3 id="修改后的配置"><a href="#修改后的配置" class="headerlink" title="修改后的配置"></a>修改后的配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">root@localhost:~<span class="comment"># cat /etc/sysconfig/network-scripts/ifcfg-enp0s3</span></div><div class="line">TYPE=<span class="string">"Ethernet"</span></div><div class="line">BOOTPROTO=<span class="string">"static"</span></div><div class="line">DEFROUTE=<span class="string">"yes"</span></div><div class="line">PEERDNS=<span class="string">"yes"</span></div><div class="line">PEERROUTES=<span class="string">"yes"</span></div><div class="line">IPV4_FAILURE_FATAL=<span class="string">"no"</span></div><div class="line">IPV6INIT=<span class="string">"yes"</span></div><div class="line">IPV6_AUTOCONF=<span class="string">"yes"</span></div><div class="line">IPV6_DEFROUTE=<span class="string">"yes"</span></div><div class="line">IPV6_PEERDNS=<span class="string">"yes"</span></div><div class="line">IPV6_PEERROUTES=<span class="string">"yes"</span></div><div class="line">IPV6_FAILURE_FATAL=<span class="string">"no"</span></div><div class="line">IPV6_ADDR_GEN_MODE=<span class="string">"stable-privacy"</span></div><div class="line">NAME=<span class="string">"enp0s3"</span></div><div class="line">UUID=<span class="string">"9281a4f6-b04e-4007-8af0-b05a69e6a5aa"</span></div><div class="line">DEVICE=<span class="string">"enp0s3"</span></div><div class="line">ONBOOT=<span class="string">"yes"</span></div><div class="line">IPADDR=192.168.5.192</div><div class="line">GATEWAY=192.168.4.1</div><div class="line">NETMASK=255.255.252.0</div></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/CentOS-7-中静态-IP-以及-DNS-的配置/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+    <div class="post-spread">
       
     </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/03/rel-noopener是什么/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="liubin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="故事是这样的">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/rel-noopener是什么/" itemprop="url">
-                  rel=noopener是什么
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="问题的出现"><a href="#问题的出现" class="headerlink" title="问题的出现"></a>问题的出现</h2><p>昨晚上用<a href="http://eslint.org/">ESLint</a>检查代码时,出现了这样一行错误：</p>
-<blockquote>
-<p>Using target=”_blank” without rel=”noopener noreferrer” is a security risk: see <a href="https://mathiasbynens.github.io/rel-noopener">https://mathiasbynens.github.io/rel-noopener</a>  react/jsx-no-target-blank</p>
-</blockquote>
-<p>当然加上<code>rel=&quot;noopener noreferrer&quot;</code>之后报错就没有了，可问题是：<strong>what’s this?</strong></p>
-<h2 id="关于rel"><a href="#关于rel" class="headerlink" title="关于rel"></a>关于rel</h2><p>rel是relationship的缩写，用于指定当前文档与href链接的文档的关系（顺便一说，rev属性已在HTML5中废弃）。<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/a">MDN</a>中如此描述：</p>
-<blockquote>
-<p><strong>rel</strong></p>
-<p>对于锚点来说，rel具有href的属性， 该属性指定了目标对象到链接对象的关系。该值是空格分隔的列表关系值。 该值和语义可能将会被一些权威文档编者赋予不同的含义。 在默认的情况下，如果没有其它定义，是无效的，只有在 href 存在的情况下，使用该属性。</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/rel-noopener是什么/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/02/常用正则表达式大全/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="liubin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="故事是这样的">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/02/常用正则表达式大全/" itemprop="url">
-                  常用正则表达式大全
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="一、数字格式"><a href="#一、数字格式" class="headerlink" title="一、数字格式"></a>一、数字格式</h2><ul>
-<li>数字：^[0-9]*$</li>
-<li>n位的数字：^\d{n}$</li>
-<li>至少n位的数字：^\d{n,}$</li>
-<li>m-n位的数字：^\d{m,n}$</li>
-<li>零和非零开头的数字：^(0|[1-9][0-9]*)$</li>
-<li>非零开头的最多带两位小数的数字：^([1-9][0-9]*)+(.[0-9]{1,2})?$</li>
-<li>带1-2位小数的正数或负数：^(-)?\d+(.\d{1,2})?$</li>
-<li>正数、负数、和小数：^(-|+)?\d+(.\d+)?$</li>
-<li>有两位小数的正实数：^[0-9]+(.[0-9]{2})?$</li>
-<li>有1~3位小数的正实数：^[0-9]+(.[0-9]{1,3})?$</li>
-<li>非零的正整数：^[1-9]\d<em>$ 或 ^([1-9][0-9]</em>){1,3}$ 或 ^+?[1-9][0-9]*$</li>
-<li>非零的负整数：^-[1-9][]0-9″<em>$ 或 ^-[1-9]\d</em>$</li>
-<li>非负整数：^\d+$ 或 ^[1-9]\d*|0$</li>
-<li>非正整数：^-[1-9]\d*|0$ 或 ^((-\d+)|(0+))$</li>
-<li>非负- 浮点数：^\d+(.\d+)?$ 或 ^[1-9]\d<em>.\d</em>|0.\d<em>[1-9]\d</em>|0?.0+|0$</li>
-<li>非正浮点数：^((-\d+(.\d+)?)|(0+(.0+)?))$ 或 ^(-([1-9]\d<em>.\d</em>|0.\d<em>[1-9]\d</em>))|0?.0+|0$</li>
-<li>正浮点数：^[1-9]\d<em>.\d</em>|0.\d<em>[1-9]\d</em>$ 或 ^(([0-9]+.[0-9]<em>[1-9][0-9]</em>)|([0-9]<em>[1-9][0-9]</em>.[0-9]+)|([0-9]<em>[1-9][0-9]</em>))$</li>
-<li>负浮点数：^-([1-9]\d<em>.\d</em>|0.\d<em>[1-9]\d</em>)$ 或 ^(-(([0-9]+.[0-9]<em>[1-9][0-9]</em>)|([0-9]<em>[1-9][0-9]</em>.[0-9]+)|([0-9]<em>[1-9][0-9]</em>)))$</li>
-<li>浮点数：^(-?\d+)(.\d+)?$ 或 ^-?([1-9]\d<em>.\d</em>|0.\d<em>[1-9]\d</em>|0?.0+|0)$</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/02/常用正则表达式大全/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/01/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="liubin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="故事是这样的">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/hello-world/" itemprop="url">
-                  Hello World
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong><em>欢迎！我白天是个程序员，晚上就是个有抱负的演员。这是我的博客。我住在天朝的帝都，有条叫做 Jack 的狗。</em></strong></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
@@ -1322,8 +553,17 @@ docker run -p 9000:9000 -v ~/opt:/opt -it eva/php
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpeg"
@@ -1403,6 +643,22 @@ docker run -p 9000:9000 -v ~/opt:/opt -it eva/php
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hello-World"><span class="nav-number">1.</span> <span class="nav-text">Hello World</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用单一进程容器"><span class="nav-number">2.</span> <span class="nav-text">使用单一进程容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL容器"><span class="nav-number">2.1.</span> <span class="nav-text">MySQL容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx容器"><span class="nav-number">2.2.</span> <span class="nav-text">Nginx容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP容器"><span class="nav-number">2.3.</span> <span class="nav-text">PHP容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-CLI的实现"><span class="nav-number">2.4.</span> <span class="nav-text">PHP-CLI的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis容器"><span class="nav-number">2.5.</span> <span class="nav-text">Redis容器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器的连接"><span class="nav-number">3.</span> <span class="nav-text">容器的连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更复杂的实例"><span class="nav-number">4.</span> <span class="nav-text">更复杂的实例</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1506,6 +762,10 @@ docker run -p 9000:9000 -v ~/opt:/opt -it eva/php
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 
