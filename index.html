@@ -262,6 +262,119 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/09/C语言实现IP库的整合/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="liubin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="故事是这样的">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/09/C语言实现IP库的整合/" itemprop="url">
+                  C语言实现IP库的整合
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在上一篇文章<a href="/2017/08/C语言使用sscanf-解析字符串/">《C语言使用sscanf()解析字符串》</a>中提到过，前段时间在底层同学那接了个作业，用 C 写一个 IP库匹配的程序，以巩固我的C 语言学习成果。最近终于完成了地域IP 与设备IP 的整合，过程也算几经波折，前文写的就是小波折的其中之一，而如今作业就先阶段性的做到这儿吧，我先阶段性的总结一下。毕竟这只是生产环境中用到的其中一环，而我要去做更酷的事情了，具体是什么事情，敬请期待。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/C语言实现IP库的整合/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/08/C语言使用sscanf-解析字符串/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1313,128 +1426,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/03/rel-noopener是什么/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="liubin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="故事是这样的">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/rel-noopener是什么/" itemprop="url">
-                  rel=noopener是什么
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="问题的出现"><a href="#问题的出现" class="headerlink" title="问题的出现"></a>问题的出现</h2><p>昨晚上用<a href="http://eslint.org/">ESLint</a>检查代码时,出现了这样一行错误：</p>
-<blockquote>
-<p>Using target=”_blank” without rel=”noopener noreferrer” is a security risk: see <a href="https://mathiasbynens.github.io/rel-noopener">https://mathiasbynens.github.io/rel-noopener</a>  react/jsx-no-target-blank</p>
-</blockquote>
-<p>当然加上<code>rel=&quot;noopener noreferrer&quot;</code>之后报错就没有了，可问题是：<strong>what’s this?</strong></p>
-<h2 id="关于rel"><a href="#关于rel" class="headerlink" title="关于rel"></a>关于rel</h2><p>rel是relationship的缩写，用于指定当前文档与href链接的文档的关系（顺便一说，rev属性已在HTML5中废弃）。<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/a">MDN</a>中如此描述：</p>
-<blockquote>
-<p><strong>rel</strong></p>
-<p>对于锚点来说，rel具有href的属性， 该属性指定了目标对象到链接对象的关系。该值是空格分隔的列表关系值。 该值和语义可能将会被一些权威文档编者赋予不同的含义。 在默认的情况下，如果没有其它定义，是无效的，只有在 href 存在的情况下，使用该属性。</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/rel-noopener是什么/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1484,7 +1475,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1506,7 +1497,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
