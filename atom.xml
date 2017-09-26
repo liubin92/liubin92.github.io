@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://liubin92.github.io/"/>
-  <updated>2017-09-05T09:33:32.000Z</updated>
+  <updated>2017-09-05T09:39:37.000Z</updated>
   <id>https://liubin92.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://liubin92.github.io/2017/09/C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0IP%E5%BA%93%E7%9A%84%E6%95%B4%E5%90%88/"/>
     <id>https://liubin92.github.io/2017/09/C语言实现IP库的整合/</id>
     <published>2017-09-05T06:02:53.000Z</published>
-    <updated>2017-09-05T09:33:32.000Z</updated>
+    <updated>2017-09-05T09:39:37.000Z</updated>
     
     <content type="html"><![CDATA[<p>在上一篇文章<a href="/2017/08/C语言使用sscanf-解析字符串/">《C语言使用sscanf()解析字符串》</a>中提到过，前段时间在底层同学那接了个作业，用 C 写一个 IP库匹配的程序，以巩固我的C 语言学习成果。最近终于完成了地域IP 与设备IP 的整合，过程也算几经波折，前文写的就是小波折的其中之一，而如今作业就先阶段性的做到这儿吧，我先阶段性的总结一下。毕竟这只是生产环境中用到的其中一环，而我要去做更酷的事情了，具体是什么事情，敬请期待。</p>
 <a id="more"></a>
