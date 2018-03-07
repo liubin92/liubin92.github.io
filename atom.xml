@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://liubin92.github.io/"/>
-  <updated>2017-12-05T10:11:42.319Z</updated>
+  <updated>2018-03-07T07:50:07.141Z</updated>
   <id>https://liubin92.github.io/</id>
   
   <author>
@@ -14,6 +14,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记一次失误导致的事故</title>
+    <link href="https://liubin92.github.io/2018/03/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%A4%B1%E8%AF%AF%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BA%8B%E6%95%85/"/>
+    <id>https://liubin92.github.io/2018/03/记一次失误导致的事故/</id>
+    <published>2018-03-07T07:48:41.000Z</published>
+    <updated>2018-03-07T07:50:07.141Z</updated>
+    
+    <content type="html"><![CDATA[<p>手残误删了生产环境的系统目录，目前事故仍在处理中，等处理完之后再做整理回顾。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;手残误删了生产环境的系统目录，目前事故仍在处理中，等处理完之后再做整理回顾。&lt;/p&gt;
+
+    
+    </summary>
+    
+      <category term="linux笔记" scheme="https://liubin92.github.io/categories/linux%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="生活" scheme="https://liubin92.github.io/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="linux" scheme="https://liubin92.github.io/tags/linux/"/>
+    
+  </entry>
   
   <entry>
     <title>2017 Milestones</title>
@@ -269,9 +295,9 @@
       <category term="C/C++" scheme="https://liubin92.github.io/categories/C-C/"/>
     
     
-      <category term="C语言" scheme="https://liubin92.github.io/tags/C%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="linux" scheme="https://liubin92.github.io/tags/linux/"/>
+    
+      <category term="C语言" scheme="https://liubin92.github.io/tags/C%E8%AF%AD%E8%A8%80/"/>
     
       <category term="算法" scheme="https://liubin92.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
