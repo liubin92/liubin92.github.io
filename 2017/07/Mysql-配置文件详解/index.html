@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -71,13 +71,13 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="mysql," />
+  <meta name="keywords" content="MySQL," />
 
 
 
 
 
-  <link rel="alternate" href="/atom.xml" title="故事是这样的" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="藏器待时" type="application/atom+xml" />
 
 
 
@@ -95,17 +95,17 @@ MacBook Pro (Retina, 13-inch, Early 2015)
 macOS 10.12.5
 slave versi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mysql 配置文件详解">
-<meta property="og:url" content="https://liubin92.github.io/2017/07/Mysql-配置文件详解/index.html">
-<meta property="og:site_name" content="故事是这样的">
+<meta property="og:title" content="MySQL 配置文件详解">
+<meta property="og:url" content="https://liubin92.github.io/2017/07/MySQL-配置文件详解/index.html">
+<meta property="og:site_name" content="藏器待时">
 <meta property="og:description" content="近几个月 team 里就剩我一个工程师，前端后端运维杂活儿一大堆，各种开会 &amp;amp; 面试，一直没来得及写 blog，近期小组内部一起研究 mysql，所以先分享我的 mysql 配置(附带部分配置项说明)以供参考，之后更新也当做个记录。
 environment
 MacBook Pro (Retina, 13-inch, Early 2015)
 macOS 10.12.5
 slave versi">
-<meta property="og:updated_time" content="2017-07-21T09:40:05.000Z">
+<meta property="og:updated_time" content="2019-04-02T09:26:13.349Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mysql 配置文件详解">
+<meta name="twitter:title" content="MySQL 配置文件详解">
 <meta name="twitter:description" content="近几个月 team 里就剩我一个工程师，前端后端运维杂活儿一大堆，各种开会 &amp;amp; 面试，一直没来得及写 blog，近期小组内部一起研究 mysql，所以先分享我的 mysql 配置(附带部分配置项说明)以供参考，之后更新也当做个记录。
 environment
 MacBook Pro (Retina, 13-inch, Early 2015)
@@ -118,7 +118,7 @@ slave versi">
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Pisces',
     sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
     fancybox: true,
     motion: true,
@@ -138,13 +138,13 @@ slave versi">
 
 
 
-  <link rel="canonical" href="https://liubin92.github.io/2017/07/Mysql-配置文件详解/"/>
+  <link rel="canonical" href="https://liubin92.github.io/2017/07/MySQL-配置文件详解/"/>
 
 
 
 
 
-  <title> Mysql 配置文件详解 | 故事是这样的 </title>
+  <title> MySQL 配置文件详解 | 藏器待时 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -180,12 +180,12 @@ slave versi">
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">故事是这样的</span>
+        <span class="site-title">藏器待时</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle">你来人间一趟 你要看看太阳</p>
+        <p class="site-subtitle"></p>
       
   </div>
 
@@ -273,16 +273,16 @@ slave versi">
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/07/Mysql-配置文件详解/">
+    <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/07/MySQL-配置文件详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="liubin">
+      <meta itemprop="name" content="Liu Bin">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="故事是这样的">
+      <meta itemprop="name" content="藏器待时">
     </span>
 
     
@@ -294,7 +294,7 @@ slave versi">
             
             
               
-                Mysql 配置文件详解
+                MySQL 配置文件详解
               
             
           </h1>
@@ -303,12 +303,44 @@ slave versi">
         <div class="post-meta">
           <span class="post-time">
             
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-12T15:34:07+08:00">
+                2017-07-12
+              </time>
+            
 
             
 
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -381,6 +413,21 @@ slave versi">
     <div>
       
         
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Liu Bin
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://liubin92.github.io/2017/07/MySQL-配置文件详解/" title="MySQL 配置文件详解">https://liubin92.github.io/2017/07/MySQL-配置文件详解/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
 
       
     </div>
@@ -389,7 +436,7 @@ slave versi">
       
         <div class="post-tags">
           
-            <a href="/tags/mysql/" rel="tag"># mysql</a>
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
           
         </div>
       
@@ -412,8 +459,8 @@ slave versi">
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/07/Mysql-用户与授权/" rel="prev" title="Mysql 用户与授权">
-                Mysql 用户与授权 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/MySQL-用户与授权/" rel="prev" title="MySQL 用户与授权">
+                MySQL 用户与授权 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -471,10 +518,10 @@ slave versi">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpeg"
-               alt="liubin" />
-          <p class="site-author-name" itemprop="name">liubin</p>
+               alt="Liu Bin" />
+          <p class="site-author-name" itemprop="name">Liu Bin</p>
            
-              <p class="site-description motion-element" itemprop="description">your will, my hands.</p>
+              <p class="site-description motion-element" itemprop="description">Everybody gets what they want from the market.</p>
           
         </div>
         <nav class="site-state motion-element">
@@ -482,7 +529,7 @@ slave versi">
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -493,7 +540,7 @@ slave versi">
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -504,7 +551,7 @@ slave versi">
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -580,11 +627,11 @@ slave versi">
         <div class="copyright" >
   
   &copy;  2017 - 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">liubin</span>
+  <span class="author" itemprop="copyrightHolder">Liu Bin</span>
 </div>
 
 
@@ -623,11 +670,11 @@ slave versi">
   
 
 
+
+
+
+
   
-
-
-
-
 
 
 
@@ -650,7 +697,7 @@ slave versi">
   <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
   
-  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script type="text/javascript" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
 
 
   
@@ -664,6 +711,13 @@ slave versi">
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>

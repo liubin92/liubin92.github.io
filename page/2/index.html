@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -77,7 +77,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="故事是这样的" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="藏器待时" type="application/atom+xml" />
 
 
 
@@ -89,15 +89,15 @@
 
 
 
-<meta name="description" content="your will, my hands.">
+<meta name="description" content="Everybody gets what they want from the market.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="故事是这样的">
+<meta property="og:title" content="藏器待时">
 <meta property="og:url" content="https://liubin92.github.io/page/2/index.html">
-<meta property="og:site_name" content="故事是这样的">
-<meta property="og:description" content="your will, my hands.">
+<meta property="og:site_name" content="藏器待时">
+<meta property="og:description" content="Everybody gets what they want from the market.">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="故事是这样的">
-<meta name="twitter:description" content="your will, my hands.">
+<meta name="twitter:title" content="藏器待时">
+<meta name="twitter:description" content="Everybody gets what they want from the market.">
 
 
 
@@ -105,7 +105,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Pisces',
     sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
     fancybox: true,
     motion: true,
@@ -131,7 +131,7 @@
 
 
 
-  <title> 故事是这样的 </title>
+  <title> 藏器待时 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -169,12 +169,12 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">故事是这样的</span>
+        <span class="site-title">藏器待时</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle">你来人间一趟 你要看看太阳</p>
+        <p class="site-subtitle"></p>
       
   </div>
 
@@ -262,16 +262,162 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/03/查看当前环境虚拟技术-bash-profile立即生效方式/">
+    <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/04/Redux-saga实践总结及其高级功能在DvaJS中的应用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="liubin">
+      <meta itemprop="name" content="Liu Bin">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="故事是这样的">
+      <meta itemprop="name" content="藏器待时">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/Redux-saga实践总结及其高级功能在DvaJS中的应用/" itemprop="url">
+                  Redux-saga实践总结及其高级功能在DvaJS中的应用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-16T15:23:51+08:00">
+                2017-04-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="选择-dvajs"><a href="#选择-dvajs" class="headerlink" title="选择 dvajs"></a>选择 dvajs</h2><p>最近一直忙于公司产品的前端重构，因为之前学习和接触的东西一直以后端为主，使用的语言又是以 PHP 为主，所以对于前端开发使用的语言 ES6 的代码规范和编程风格不太熟悉，对于前端工程化的经验也是几乎为零。虽然 leader 给了充足的学习时间和强大的技术支持，但写代码的就我自己。于是乎我就选择了 <strong>antd+dvajs</strong>，一来框架作者提供的 Demo 可以让我去学习前端的设计思想和代码的编写规范，二来我不需要耗费过多的精力去搭建整个项目的生态。站在巨人的肩上，才能更好更快地拥抱 <strong>react/redux</strong> 全家桶。</p>
+<h2 id="redux-saga"><a href="#redux-saga" class="headerlink" title="redux-saga"></a>redux-saga</h2><h3 id="什么是-saga"><a href="#什么是-saga" class="headerlink" title="什么是 saga"></a>什么是 saga</h3><p>Saga这个名词常被用在CQRS的讨论中，它是指一段在限定上下文（bounded contexts）和聚合（aggregates）之间起协作和路由（coordinates and routes）消息作用的代码。最早被定义在Hector Garcia-Molina和Kenneth Salem的论文”<a href="http://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf">Sagas</a>“中。这篇论文提出了一个saga机制来作为分布式事务的替代品以解决长时间运行的分布式事务（long-running process）的问题。这篇论文认为业务过程经常由很多步骤组成，每个步骤都涉及一个事务，如果将这些事务组成一个分布式事务，就可以实现总体一致（overall consistency）。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/04/Redux-saga实践总结及其高级功能在DvaJS中的应用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/03/查看当前环境虚拟技术-bash-profile立即生效方式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Liu Bin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="藏器待时">
     </span>
 
     
@@ -295,12 +441,44 @@
         <div class="post-meta">
           <span class="post-time">
             
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-29T10:48:01+08:00">
+                2017-03-29
+              </time>
+            
 
             
 
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -380,13 +558,13 @@
     <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/03/CentOS-7-中静态-IP-以及-DNS-的配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="liubin">
+      <meta itemprop="name" content="Liu Bin">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="故事是这样的">
+      <meta itemprop="name" content="藏器待时">
     </span>
 
     
@@ -410,12 +588,44 @@
         <div class="post-meta">
           <span class="post-time">
             
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-19T17:24:01+08:00">
+                2017-03-19
+              </time>
+            
 
             
 
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -495,13 +705,13 @@
     <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/03/rel-noopener是什么/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="liubin">
+      <meta itemprop="name" content="Liu Bin">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="故事是这样的">
+      <meta itemprop="name" content="藏器待时">
     </span>
 
     
@@ -525,12 +735,44 @@
         <div class="post-meta">
           <span class="post-time">
             
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-02T10:38:03+08:00">
+                2017-03-02
+              </time>
+            
 
             
 
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -617,13 +859,13 @@
     <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/02/常用正则表达式大全/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="liubin">
+      <meta itemprop="name" content="Liu Bin">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="故事是这样的">
+      <meta itemprop="name" content="藏器待时">
     </span>
 
     
@@ -647,12 +889,44 @@
         <div class="post-meta">
           <span class="post-time">
             
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-04T22:55:27+08:00">
+                2017-02-04
+              </time>
+            
 
             
 
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Common/" itemprop="url" rel="index">
+                    <span itemprop="name">Common</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -750,13 +1024,13 @@
     <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/01/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="liubin">
+      <meta itemprop="name" content="Liu Bin">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="故事是这样的">
+      <meta itemprop="name" content="藏器待时">
     </span>
 
     
@@ -780,12 +1054,44 @@
         <div class="post-meta">
           <span class="post-time">
             
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-16T20:15:25+08:00">
+                2017-01-16
+              </time>
+            
 
             
 
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/生活/" itemprop="url" rel="index">
+                    <span itemprop="name">生活</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -885,10 +1191,10 @@
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpeg"
-               alt="liubin" />
-          <p class="site-author-name" itemprop="name">liubin</p>
+               alt="Liu Bin" />
+          <p class="site-author-name" itemprop="name">Liu Bin</p>
            
-              <p class="site-description motion-element" itemprop="description">your will, my hands.</p>
+              <p class="site-description motion-element" itemprop="description">Everybody gets what they want from the market.</p>
           
         </div>
         <nav class="site-state motion-element">
@@ -896,7 +1202,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -907,7 +1213,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -918,7 +1224,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -978,11 +1284,11 @@
         <div class="copyright" >
   
   &copy;  2017 - 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">liubin</span>
+  <span class="author" itemprop="copyrightHolder">Liu Bin</span>
 </div>
 
 
@@ -1021,11 +1327,11 @@
   
 
 
+
+
+
+
   
-
-
-
-
 
 
 
@@ -1048,7 +1354,7 @@
   <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
   
-  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script type="text/javascript" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
 
 
   
@@ -1062,6 +1368,13 @@
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
 
   
 
