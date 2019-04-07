@@ -262,6 +262,154 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/04/linux的du和df命令/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Liu Bin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="藏器待时">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/linux的du和df命令/" itemprop="url">
+                  Linux的du和df命令
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-18T17:07:14+08:00">
+                2017-04-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="这是4月18号的流水账"><a href="#这是4月18号的流水账" class="headerlink" title="这是4月18号的流水账"></a>这是4月18号的流水账</h2><p>今天如往常一样完成一个功能后，把代码推到测试环境，结果 response 有点跟往常不一样：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">liubin@localhost:~<span class="comment"># git push test branch</span></div><div class="line">Counting objects: 18, done.</div><div class="line">Delta compression using up to 4 threads.</div><div class="line">Compressing objects: 100% (16/16), done.</div><div class="line">Writing objects: 100% (18/18), 2.12 KiB | 0 bytes/s, done.</div><div class="line">Total 18 (delta 11), reused 0 (delta 0)</div><div class="line">remote: error: file write error (No space left on device)</div><div class="line">remote: fatal: unable to write sha1 file</div><div class="line">error: unpack failed: unpack-objects abnormal <span class="built_in">exit</span></div><div class="line">To csrtest:/var/gitlab/test.git</div><div class="line"> ! [remote rejected]   branch -&gt; branch (unpacker error)</div><div class="line">error: failed to push some refs to <span class="string">'git@test:/var/gitlab/test.git'</span></div></pre></td></tr></table></figure>
+<p>No space left on device. 意思是测试服务器上没空了呗，上去看一下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">liubin@<span class="built_in">test</span>:~<span class="comment"># df -h</span></div><div class="line">Filesystem      Size  Used Avail Use% Mounted on</div><div class="line">/dev/vda2       289G  274G   16M 100% /</div><div class="line">tmpfs           939M     0  939M   0% /dev/shm</div><div class="line">/dev/vda1       985M   93M  842M  10% /boot</div><div class="line">/dev/vda3       203G  188M  193G   1% /data</div></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/04/linux的du和df命令/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://liubin92.github.io/2017/04/Redux-saga实践总结及其高级功能在DvaJS中的应用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1202,7 +1350,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
