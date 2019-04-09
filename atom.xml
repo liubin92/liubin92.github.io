@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://liubin92.github.io/"/>
-  <updated>2019-04-07T12:02:48.673Z</updated>
+  <updated>2019-04-09T10:43:30.365Z</updated>
   <id>https://liubin92.github.io/</id>
   
   <author>
@@ -16,11 +16,101 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>《深入理解Java虚拟机：JVM高级特性与最佳实践》笔记(三)</title>
+    <link href="https://liubin92.github.io/2019/04/%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Java%E8%99%9A%E6%8B%9F%E6%9C%BA%EF%BC%9AJVM%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E3%80%8B%E7%AC%94%E8%AE%B0-%E4%B8%89/"/>
+    <id>https://liubin92.github.io/2019/04/《深入理解Java虚拟机：JVM高级特性与最佳实践》笔记-三/</id>
+    <published>2019-04-09T10:38:46.000Z</published>
+    <updated>2019-04-09T10:43:30.365Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="虚拟机性能监控与故障处理工具"><a href="#虚拟机性能监控与故障处理工具" class="headerlink" title="虚拟机性能监控与故障处理工具"></a>虚拟机性能监控与故障处理工具</h3><ul>
+<li>命令行工具<ul>
+<li><code>jps</code>：虚拟机进程状况工具</li>
+<li><code>jstat</code>：虚拟机统计信息监视工具</li>
+<li><code>jinfo</code>：Java配置信息工具</li>
+<li><code>jmap</code>：Java内存映像工具</li>
+<li><code>jstack</code>：Java堆栈跟踪工具</li>
+<li><code>HSDIS</code>：JIT生成代码反汇编</li>
+</ul>
+</li>
+<li>可视化工具<ul>
+<li><code>jconsole</code>：Java监视与管理控制台</li>
+<li><code>jvisualvm</code>：多合一故障处理工具</li>
+</ul>
+</li>
+</ul>
+<a id="more"></a>
+<h3 id="调优案例分析与实战"><a href="#调优案例分析与实战" class="headerlink" title="调优案例分析与实战"></a>调优案例分析与实战</h3><h4 id="高性能硬件上的程序部署策略"><a href="#高性能硬件上的程序部署策略" class="headerlink" title="高性能硬件上的程序部署策略"></a>高性能硬件上的程序部署策略</h4><p>目前主要有两种方式：</p>
+<ul>
+<li>通过64位JDK来使用大内存。</li>
+<li>使用若干个32位虚拟机建立逻辑集群来利用硬件资源。</li>
+</ul>
+<p>64位JDK管理大内存需要考虑的问题：</p>
+<ol>
+<li>内存回收导致的长时间停顿。</li>
+<li>64位JDK的性能测试结果低于32位JDK。</li>
+<li>需要保证程序足够稳定，因为这种应用要是产生堆溢出几乎就无法产生堆转储快照，哪怕产生了快照也几乎无法分析。</li>
+<li>相同程序在64位的JDK消耗的内存一般也比32位JDK大，这是由于指针膨胀，以及数据类型对齐补白等因素导致的。</li>
+</ol>
+<p>使用逻辑集群来部署程序，可能会遇到以下问题：</p>
+<ol>
+<li>尽量避免节点竞争全局的资源，最典型的就是磁盘竞争，各个节点如果同时访问磁盘文件的话（尤其是并发写操作容易出现问题），很容易导致IO异常。</li>
+<li>很难最高效地利用某些资源池，譬如连接池，一般都是在各个节点建立自己独立的连接池，这样可能导致一些节点池满了而另外一些节点仍有较多空余。尽管使用集中式的JNDI，但这个有一定复杂性并且可能带来额外的性能开销。</li>
+<li>各个节点仍然不可避免地受到32位的内存限制，在32位Windows平台中每个进程只能使用2GB的内存，考虑到堆以外的内存开销，堆一般最多只能开到1.5GB。在某些Linux或者UNIX系统中，可以提升到3GB乃至接近4GB的内存，但32位中仍然受最高4GB内存的限制。</li>
+<li>大量使用本地缓存的应用，在逻辑集群中会造成较大的内存浪费，因为每个逻辑节点上都有一份缓存，这时候可以考虑把本地缓存改为集中式缓存。</li>
+</ol>
+<h4 id="集群间同步导致的内存溢出"><a href="#集群间同步导致的内存溢出" class="headerlink" title="集群间同步导致的内存溢出"></a>集群间同步导致的内存溢出</h4><p>集群同步数据，网络传输带宽不足，重发数据在内存堆积，导致内存溢出。</p>
+<h4 id="堆外内存导致的溢出错误"><a href="#堆外内存导致的溢出错误" class="headerlink" title="堆外内存导致的溢出错误"></a>堆外内存导致的溢出错误</h4><p>除了Java堆和永久代之外，以下区域还会占用较多的内存，这里所有的内存总和受到操作系统进程最大内存的限制。</p>
+<ul>
+<li>Direct Memory：可通过<code>-XX:MaxDirectMemorySize</code>调整大小，内存不足时抛出OutOfMemoryError或者OutOfMemoryError：Direct buffer memory。</li>
+<li>线程堆栈：可通过<code>-Xss</code>调整大小，内存不足时抛出StackOverflowError（纵向无法分配，即无法分配新的栈帧）或者OutOfMemoryError：unable to create new native thread（横向无法分配，即无法建立新的线程）。</li>
+<li>Socket缓存区：每个Socket连接都有Receive和Send两个缓冲区，分别占大约37KB和25KB内存，连接多的话这块内存占用也比较客观。如果无法分配，则可能会抛出IOException：Too many open files异常。</li>
+<li>JNI代码：如果代码中使用JNI调用本地库，那本地库使用的内存也不在堆中。</li>
+<li>虚拟机和GC：虚拟机、GC的代码执行也要消耗一定的内存。</li>
+</ul>
+<h4 id="外部命令导致系统缓慢"><a href="#外部命令导致系统缓慢" class="headerlink" title="外部命令导致系统缓慢"></a>外部命令导致系统缓慢</h4><p>Java执行<code>Runtime.getRuntime().exec()</code>的过程是：首先克隆一个和当前虚拟机拥有一样环境变量的进程，再用这个新的进程去执行外部命令，最后再退出这个进程。如果频繁执行这个操作，系统的消耗会很大。</p>
+<h4 id="服务器JVM进程崩溃"><a href="#服务器JVM进程崩溃" class="headerlink" title="服务器JVM进程崩溃"></a>服务器JVM进程崩溃</h4><p>等待的线程和Socket连接数量超过了虚拟机的承受能力。解决办法：生产者-消费者模式。</p>
+<h4 id="不恰当的数据结构导致内存占用过大"><a href="#不恰当的数据结构导致内存占用过大" class="headerlink" title="不恰当的数据结构导致内存占用过大"></a>不恰当的数据结构导致内存占用过大</h4><p>在HashMap<long, long="">结构中，只有Key和Value所存放的两个长整型数据是有效数据，共16B（2x8B）。这两个长整型数据包装成java.lang.Long对象之后，就分别具有8B的MarkWord、8B的Klass指针，在加8B存储数据的long值。在这两个Long对象组成Map.Entry之后，又多了16B的对象头，然后一个8B的next字段和4B的int型hash字段，为了对齐，还必须添加4B的空白填充，最后还有HashMap中对这个Entry的8B的引用，这样增加了两个长整型数字，实际耗费内存为(Long(24B)x2)+Entry(32B)+HashMap Ref(8B) = 88B，空间效率为16/88=18%，实在是太低了。</long,></p>
+<h4 id="由Windows虚拟内存导致的长时间停顿"><a href="#由Windows虚拟内存导致的长时间停顿" class="headerlink" title="由Windows虚拟内存导致的长时间停顿"></a>由Windows虚拟内存导致的长时间停顿</h4><p>Java的GUI程序，当它最小化时，资源管理器中显示的占用内存大幅度减小，但是虚拟内存则没有变化，可能是程序最小化时它的工作内存被自动交换到磁盘的页面文件中了，这样发生GC时就可能因为恢复页面文件的操作而导致不正常的GC停顿。可以加入参数<code>-Dsun.awt.keepWorkingSetOnMinimize=true</code>解决。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;虚拟机性能监控与故障处理工具&quot;&gt;&lt;a href=&quot;#虚拟机性能监控与故障处理工具&quot; class=&quot;headerlink&quot; title=&quot;虚拟机性能监控与故障处理工具&quot;&gt;&lt;/a&gt;虚拟机性能监控与故障处理工具&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;命令行工具&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;jps&lt;/code&gt;：虚拟机进程状况工具&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;jstat&lt;/code&gt;：虚拟机统计信息监视工具&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;jinfo&lt;/code&gt;：Java配置信息工具&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;jmap&lt;/code&gt;：Java内存映像工具&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;jstack&lt;/code&gt;：Java堆栈跟踪工具&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;HSDIS&lt;/code&gt;：JIT生成代码反汇编&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;可视化工具&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;jconsole&lt;/code&gt;：Java监视与管理控制台&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;jvisualvm&lt;/code&gt;：多合一故障处理工具&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="https://liubin92.github.io/categories/Java/"/>
+    
+    
+      <category term="JVM" scheme="https://liubin92.github.io/tags/JVM/"/>
+    
+      <category term="Java" scheme="https://liubin92.github.io/tags/Java/"/>
+    
+      <category term="读书笔记" scheme="https://liubin92.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
     <title>《深入理解Java虚拟机：JVM高级特性与最佳实践》笔记(二)</title>
     <link href="https://liubin92.github.io/2019/04/%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Java%E8%99%9A%E6%8B%9F%E6%9C%BA%EF%BC%9AJVM%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E3%80%8B%E7%AC%94%E8%AE%B0-%E4%BA%8C/"/>
     <id>https://liubin92.github.io/2019/04/《深入理解Java虚拟机：JVM高级特性与最佳实践》笔记-二/</id>
     <published>2019-04-07T11:49:15.000Z</published>
-    <updated>2019-04-07T12:02:48.673Z</updated>
+    <updated>2019-04-09T10:39:19.289Z</updated>
     
     <content type="html"><![CDATA[<h3 id="垃圾收集器与内存分配策略"><a href="#垃圾收集器与内存分配策略" class="headerlink" title="垃圾收集器与内存分配策略"></a>垃圾收集器与内存分配策略</h3><ul>
 <li>哪些内存需要回收？</li>
