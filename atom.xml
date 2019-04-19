@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://liubin92.github.io/"/>
-  <updated>2019-04-17T07:11:22.595Z</updated>
+  <updated>2019-04-19T11:33:00.027Z</updated>
   <id>https://liubin92.github.io/</id>
   
   <author>
@@ -14,6 +14,76 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>《深入理解Java虚拟机：JVM高级特性与最佳实践》笔记(六)</title>
+    <link href="https://liubin92.github.io/2019/04/%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Java%E8%99%9A%E6%8B%9F%E6%9C%BA%EF%BC%9AJVM%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E3%80%8B%E7%AC%94%E8%AE%B0-%E5%85%AD/"/>
+    <id>https://liubin92.github.io/2019/04/《深入理解Java虚拟机：JVM高级特性与最佳实践》笔记-六/</id>
+    <published>2019-04-19T11:32:00.000Z</published>
+    <updated>2019-04-19T11:33:00.027Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="虚拟机字节码执行引擎"><a href="#虚拟机字节码执行引擎" class="headerlink" title="虚拟机字节码执行引擎"></a>虚拟机字节码执行引擎</h3><p>从外观（Facade）上看，所有的Java虚拟机的执行引擎都是一致的：输入的是字节码文件，处理过程是字节码解析的等效过程，输出的是执行结果。</p>
+<a id="more"></a>
+<h4 id="运行时栈帧结构"><a href="#运行时栈帧结构" class="headerlink" title="运行时栈帧结构"></a>运行时栈帧结构</h4><p>栈帧（Stack Frame）是用于支持虚拟机进行方法调用和方法执行的数据结构，它是虚拟机运行时数据区中的虚拟机栈（Virtual Machine Stack）的栈元素。栈帧存储了方法的局部变量表、操作数栈、动态连接接方法返回地址等信息。每一个方法从调用开始至执行完成的过程，都对应着一个栈帧在虚拟机栈里面从入栈到出栈的过程。</p>
+<p>一个线程中的方法调用链可能会很长，很多方法都同时处于执行状态。对于执行引擎来说，在活动线程中，只有位于栈顶的栈帧才是有效的，称当前栈帧（Current Stack Frame），与这个栈帧相关联的方法称为当前方法（Current Method）。执行引擎运行的所有字节码都只针对当前栈帧进行操作。</p>
+<p><strong>局部变量表</strong></p>
+<p>局部变量表（Local Variable table）是一组变量值存储空间，用于存放方法参数和方法内部定义的局部变量。</p>
+<p>局部变量表的容量以变量槽（Variable Slot）为最小单位，虚拟机规范中并没有明确指明一个Slot应占用的内存空间大小，只是很有导向性地说到每个Slot都应该能存放一个boolean、byte、short、float、reference或returnAddress类型的数据。</p>
+<p>为了节省栈帧空间，局部变量表中的Slot是可以重用的，方法体中定义的变量，其作用域并不一定会覆盖整个方法体，如果当前字节码PC计数器的值已经超出了某个变量的作用域，那这个变量对应的Slot就可以交给其他变量使用。</p>
+<p>局部变量不像类变量那样存在“准备阶段”，如果一个局部变量定义了但没有赋初始值是不能使用的。</p>
+<p><strong>操作数栈</strong></p>
+<p>操作数栈的每一个元素可以是任意的Java数据类型，包括long和double。32位数据类型所占的栈容量为1，64位数据类型所占的栈容量为2.在方法执行的任何时候，操作数栈的深度都不会超过在max_stacks数据项中设定的最大值。</p>
+<p><strong>动态连接</strong></p>
+<p>每个栈帧都包含一个指向运行时常量池中该栈帧所述方法的引用，持有这个引用是为了支持方法调用过程中的动态连接（Dynamic Linking）。Class文件的常量池中存有大量符号引用，字节码中的方法调用指令就以常量池中指向方法的符号引用作为参数。这些符号引用一部分会在类加载阶段或者第一次使用的时候就转化为直接引用，这种转化称为静态解析。另一部分将在每一次运行期间转化为直接引用，这部分称为动态连接。</p>
+<p><strong>方法返回地址</strong></p>
+<p>当一个方法开始执行后，只有两种方式可以退出这个方法。第一种是执行引擎遇到任意一个方法返回的字节码指令，这时候可能会有返回值传递给上层的方法调用者，是否有返回值和返回值的类型将根据遇到何种方法返回指令来决定，这种退出方法的方式称为正常完成出口（Normal Method Invocation Completetion）。</p>
+<p>另一种退出方式是，在方法执行过程中遇到了异常，并且这个异常没有在方法体内得到处理，就会导致方法退出，这种退出方法的方式称为异常完成出口（Abrupt Method Invocation Completion）。一个方法使用异常完成出口的方式退出，是不会给它的上层调用者产生任何返回值的。</p>
+<p><strong>附加信息</strong></p>
+<p>虚拟机规范允许具体的虚拟机实现增加一些规范里没有描述的信息到栈帧之中，在实际开发中，一般都会把动态连接、方法返回地址与其他附加信息全部归为一类，称为栈帧信息。</p>
+<h4 id="方法调用"><a href="#方法调用" class="headerlink" title="方法调用"></a>方法调用</h4><p>方法调用并不等同于方法执行，方法调用阶段唯一的任务就是确定被调用方法的版本，暂时还不涉及方法内部的具体运行过程。一切方法调用在Class文件里面存储的都只是符号引用，而不是方法在实际运行时内存布局中的入口地址（相当于之前说的直接引用），需要在类加载期间，甚至到运行期间才能确定目标方法的直接引用。</p>
+<p><strong>解析</strong></p>
+<p>所有调用方法中调用的目标方法在Class文件里面都是一个常量池中的符号引用，在类加载的解析阶段，会将其中的一部分符号引用转化为直接引用，这种解析能成立的前提是：方法在程序真正运行之前就有一个可确定的调用版本，并且这个方法的调用版本在运行期是不可变的。换句话说，调用目标在程序代码写好、编译器进行编译时就必须确定下来。这类方法的调用称为解析（Resolution）。</p>
+<p>在Java语言中符合“编译期可知，运行期不可变”这个要求的方法，主要包括静态方法和私有方法两大类，前者与类型直接关联，后者在外部不可被访问。</p>
+<p><strong>分派</strong></p>
+<ul>
+<li>静态分派：重载</li>
+<li>动态分派：重写</li>
+</ul>
+<p>方法的接收者与方法的参数统称为方法的宗量，根据分派基于多少种宗量，可以将分派划分为单分派和多分派两种。单分派是根据一个宗量对目标方法进行选择，多分派则是根据一个宗量对目标方法进行选择。</p>
+<p><strong>动态类型语言支持</strong></p>
+<p>静态类型语言在编译期确定类型，可以提供严谨的类型检查，利于稳定性及代码达到更大规模。而动态类型语言在运行期确定类型，可以为开发人员提供更大的灵活性，实现功能更加清晰简洁，也就意味着开发效率的提升。</p>
+<p><code>java.lang.invoke</code>包主要目的是在之前单纯依靠符号引用来确定调用的目标方法这种方式外，提供一种新的动态确定目标方法的机制，称为MethodHandle。下面的代码演示了MethodHandle的基本用途，无论obj是何种类型，都可以正确地调用到<code>println()</code>方法。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> demo;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.lang.invoke.MethodHandle;</div><div class="line"><span class="keyword">import</span> java.lang.invoke.MethodType;</div><div class="line"></div><div class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.lang.invoke.MethodHandles.lookup;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> &#123;</span></div><div class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassA</span> &#123;</span></div><div class="line">        <span class="keyword">public</span> <span class="keyword">void</span> println(String s) &#123;</div><div class="line">            System.out.println(s);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(String[] args) <span class="keyword">throws</span> Throwable &#123;</div><div class="line">        Object obj = System.currentTimeMillis() % <span class="number">2</span> == <span class="number">0</span> ? System.out : <span class="keyword">new</span> ClassA();</div><div class="line"></div><div class="line">        getPrintLnHM(obj).invokeExact(<span class="string">"liubin92"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> MethodHandle getPrintLnHM(Object reveiver) <span class="keyword">throws</span> Throwable &#123;</div><div class="line">        MethodType mt = MethodType.methodType(<span class="keyword">void</span>.<span class="keyword">class</span>, String.<span class="keyword">class</span>);</div><div class="line"></div><div class="line">        <span class="keyword">return</span> lookup().findVirtual(reveiver.getClass(), <span class="string">"println"</span>, mt).bindTo(reveiver);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>与反射的区别：</p>
+<ul>
+<li>Reflection是在模拟Java代码层次的方法调用，MethodHandle是在模拟字节码层次的方法调用。</li>
+<li>Reflection中的<code>java.lang.reflect.Method</code>对象远比MethodHandle机制中的<code>java.lang.invoke.MethodHandle</code>对象所包含的信息多，通俗地讲，Reflection是重量级，而MethodHandle是轻量级。</li>
+<li>由于MethodHandle是对字节码的方法指令调用的模拟，所以理论上虚拟机在这方面做的各种优化（如方法内联），在MethodHandle上也应当可以采用类似的思路去支持。而通过反射区调用方法则不行。</li>
+</ul>
+<h4 id="基于栈的字节码解释执行引擎"><a href="#基于栈的字节码解释执行引擎" class="headerlink" title="基于栈的字节码解释执行引擎"></a>基于栈的字节码解释执行引擎</h4><p><strong>解释执行</strong></p>
+<p>Java语言中，Javac编译器完成了程序代码经过词法分析、语法分析到抽象语法树，再遍历语法树生成线性的字节码指令流的过程。因为这一部分动作是在Java虚拟机之外进行的，而解释器在虚拟机的内部，所以Java程序的编译就是半独立的实现。</p>
+<p><strong>基于栈的指令集与基于寄存器的指令集</strong></p>
+<p>基于栈的指令集主要的优点就是可移植，代码相对更加紧凑（字节码中每个字节就对应一条指令，而多地址指令集中还需要存放参数）、编译器实现更加简单（不需要考虑空间分配的问题，所需空间都在栈上操作）等。</p>
+<p>栈架构指令集的主要缺点是执行速度相对来说会稍慢一些。所有主流物理机的指令集都是寄存器架构也从侧面印证了这一点。</p>
+<p>虽然栈架构指令集的代码非常紧凑，但是完成相同功能所需的指令数量一般会比寄存器架构多，因为出栈、入栈操作本身就产生了相当多的指令数量。更重要的是，栈实现在内存之中，频繁的栈访问也就意味着频繁的内存访问，相对处理器来说，内存始终是执行速度的瓶颈，所以导致了栈架构指令集的执行速度会相对较慢。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;虚拟机字节码执行引擎&quot;&gt;&lt;a href=&quot;#虚拟机字节码执行引擎&quot; class=&quot;headerlink&quot; title=&quot;虚拟机字节码执行引擎&quot;&gt;&lt;/a&gt;虚拟机字节码执行引擎&lt;/h3&gt;&lt;p&gt;从外观（Facade）上看，所有的Java虚拟机的执行引擎都是一致的：输入的是字节码文件，处理过程是字节码解析的等效过程，输出的是执行结果。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="https://liubin92.github.io/categories/Java/"/>
+    
+    
+      <category term="JVM" scheme="https://liubin92.github.io/tags/JVM/"/>
+    
+      <category term="Java" scheme="https://liubin92.github.io/tags/Java/"/>
+    
+      <category term="读书笔记" scheme="https://liubin92.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>《深入理解Java虚拟机：JVM高级特性与最佳实践》笔记(五)</title>
@@ -825,11 +895,11 @@
       <category term="C/C++" scheme="https://liubin92.github.io/categories/C-C/"/>
     
     
+      <category term="Linux" scheme="https://liubin92.github.io/tags/Linux/"/>
+    
       <category term="C" scheme="https://liubin92.github.io/tags/C/"/>
     
       <category term="Algorithm" scheme="https://liubin92.github.io/tags/Algorithm/"/>
-    
-      <category term="Linux" scheme="https://liubin92.github.io/tags/Linux/"/>
     
   </entry>
   
@@ -1729,30 +1799,6 @@ docker run -p 9000:9000 -v ~/opt:/opt -it eva/php
       <category term="转载" scheme="https://liubin92.github.io/tags/%E8%BD%AC%E8%BD%BD/"/>
     
       <category term="正则表达式" scheme="https://liubin92.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="https://liubin92.github.io/2017/01/hello-world/"/>
-    <id>https://liubin92.github.io/2017/01/hello-world/</id>
-    <published>2017-01-16T12:15:25.000Z</published>
-    <updated>2017-04-18T10:56:15.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><strong><em>欢迎！我白天是个程序员，晚上就是个有抱负的演员。这是我的博客。我住在天朝的帝都，有条叫做 Jack 的狗。</em></strong></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;strong&gt;&lt;em&gt;欢迎！我白天是个程序员，晚上就是个有抱负的演员。这是我的博客。我住在天朝的帝都，有条叫做 Jack 的狗。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-    
-    </summary>
-    
-      <category term="生活" scheme="https://liubin92.github.io/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-    
-      <category term="生活" scheme="https://liubin92.github.io/tags/%E7%94%9F%E6%B4%BB/"/>
     
   </entry>
   
