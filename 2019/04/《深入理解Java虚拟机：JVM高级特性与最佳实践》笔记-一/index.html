@@ -131,7 +131,7 @@
 
 
 程序计数器当前线程所执行的字节码的行号指示器。如果执行Java方法，记录正在执">
-<meta property="og:updated_time" content="2019-04-02T09:33:26.557Z">
+<meta property="og:updated_time" content="2019-04-26T02:36:05.381Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《深入理解Java虚拟机：JVM高级特性与最佳实践》笔记(一)">
 <meta name="twitter:description" content="Java 内存区域与内存溢出异常
@@ -457,7 +457,7 @@
 <h4 id="对象的访问定位"><a href="#对象的访问定位" class="headerlink" title="对象的访问定位"></a>对象的访问定位</h4><p>主流的访问方式有两种，使用句柄和直接指针。</p>
 <ol>
 <li>使用句柄则Java堆专门划分一块内存作为句柄池，reference中存储对象的句柄地址，句柄中包含对象实例数据与类型数据各自的具体地址信息。好处：对象移动时，reference不需要修改。</li>
-<li>直接指针则Java堆对象的布局就需要防止访问对象类型数据的指针。优点：访问速度快。</li>
+<li>直接指针则Java堆对象的布局就需要放置访问对象类型数据的指针。优点：访问速度快。</li>
 </ol>
 
       
@@ -600,7 +600,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

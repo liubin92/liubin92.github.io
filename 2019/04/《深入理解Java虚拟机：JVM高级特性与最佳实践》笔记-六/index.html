@@ -89,16 +89,19 @@
 
 
 
-<meta name="description" content="虚拟机字节码执行引擎从外观（Facade）上看，所有的Java虚拟机的执行引擎都是一致的：输入的是字节码文件，处理过程是字节码解析的等效过程，输出的是执行结果。">
+<meta name="description" content="虚拟机字节码执行引擎从外观（Facade）上看，所有的Java虚拟机的执行引擎都是一致的：输入的是字节码文件，处理过程是字节码解析的等效过程，输出的是执行结果。
+运行时栈帧结构栈帧（Stack Frame）是用于支持虚拟机进行方法调用和方法执行的数据结构，它是虚拟机运行时数据区中的虚拟机栈（Virtual Machine Stack）的栈元素。栈帧存储了方法的局部变量表、操作数栈、动态连接接方法返">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《深入理解Java虚拟机：JVM高级特性与最佳实践》笔记(六)">
 <meta property="og:url" content="https://liubin92.github.io/2019/04/《深入理解Java虚拟机：JVM高级特性与最佳实践》笔记-六/index.html">
 <meta property="og:site_name" content="藏器待时">
-<meta property="og:description" content="虚拟机字节码执行引擎从外观（Facade）上看，所有的Java虚拟机的执行引擎都是一致的：输入的是字节码文件，处理过程是字节码解析的等效过程，输出的是执行结果。">
-<meta property="og:updated_time" content="2019-04-19T11:33:00.027Z">
+<meta property="og:description" content="虚拟机字节码执行引擎从外观（Facade）上看，所有的Java虚拟机的执行引擎都是一致的：输入的是字节码文件，处理过程是字节码解析的等效过程，输出的是执行结果。
+运行时栈帧结构栈帧（Stack Frame）是用于支持虚拟机进行方法调用和方法执行的数据结构，它是虚拟机运行时数据区中的虚拟机栈（Virtual Machine Stack）的栈元素。栈帧存储了方法的局部变量表、操作数栈、动态连接接方法返">
+<meta property="og:updated_time" content="2019-05-10T12:29:43.235Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《深入理解Java虚拟机：JVM高级特性与最佳实践》笔记(六)">
-<meta name="twitter:description" content="虚拟机字节码执行引擎从外观（Facade）上看，所有的Java虚拟机的执行引擎都是一致的：输入的是字节码文件，处理过程是字节码解析的等效过程，输出的是执行结果。">
+<meta name="twitter:description" content="虚拟机字节码执行引擎从外观（Facade）上看，所有的Java虚拟机的执行引擎都是一致的：输入的是字节码文件，处理过程是字节码解析的等效过程，输出的是执行结果。
+运行时栈帧结构栈帧（Stack Frame）是用于支持虚拟机进行方法调用和方法执行的数据结构，它是虚拟机运行时数据区中的虚拟机栈（Virtual Machine Stack）的栈元素。栈帧存储了方法的局部变量表、操作数栈、动态连接接方法返">
 
 
 
@@ -354,9 +357,9 @@
 
       
         <h3 id="虚拟机字节码执行引擎"><a href="#虚拟机字节码执行引擎" class="headerlink" title="虚拟机字节码执行引擎"></a>虚拟机字节码执行引擎</h3><p>从外观（Facade）上看，所有的Java虚拟机的执行引擎都是一致的：输入的是字节码文件，处理过程是字节码解析的等效过程，输出的是执行结果。</p>
-<a id="more"></a>
 <h4 id="运行时栈帧结构"><a href="#运行时栈帧结构" class="headerlink" title="运行时栈帧结构"></a>运行时栈帧结构</h4><p>栈帧（Stack Frame）是用于支持虚拟机进行方法调用和方法执行的数据结构，它是虚拟机运行时数据区中的虚拟机栈（Virtual Machine Stack）的栈元素。栈帧存储了方法的局部变量表、操作数栈、动态连接接方法返回地址等信息。每一个方法从调用开始至执行完成的过程，都对应着一个栈帧在虚拟机栈里面从入栈到出栈的过程。</p>
 <p>一个线程中的方法调用链可能会很长，很多方法都同时处于执行状态。对于执行引擎来说，在活动线程中，只有位于栈顶的栈帧才是有效的，称当前栈帧（Current Stack Frame），与这个栈帧相关联的方法称为当前方法（Current Method）。执行引擎运行的所有字节码都只针对当前栈帧进行操作。</p>
+<a id="more"></a>
 <p><strong>局部变量表</strong></p>
 <p>局部变量表（Local Variable table）是一组变量值存储空间，用于存放方法参数和方法内部定义的局部变量。</p>
 <p>局部变量表的容量以变量槽（Variable Slot）为最小单位，虚拟机规范中并没有明确指明一个Slot应占用的内存空间大小，只是很有导向性地说到每个Slot都应该能存放一个boolean、byte、short、float、reference或returnAddress类型的数据。</p>
@@ -468,6 +471,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/05/《深入理解Java虚拟机：JVM高级特性与最佳实践》笔记-七/" rel="prev" title="《深入理解Java虚拟机：JVM高级特性与最佳实践》笔记(七)">
+                《深入理解Java虚拟机：JVM高级特性与最佳实践》笔记(七) <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -534,7 +541,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
