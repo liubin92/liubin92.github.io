@@ -12,6 +12,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
   <meta name="theme-color" content="#2f4154">
   <meta name="author" content="Liu Bin">
   <meta name="keywords" content="">
@@ -20,7 +22,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="《深入理解Java虚拟机：JVM高级特性与最佳实践》笔记(三)">
 <meta property="og:url" content="https://liubin92.github.io/2019/04/%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Java%E8%99%9A%E6%8B%9F%E6%9C%BA%EF%BC%9AJVM%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E3%80%8B%E7%AC%94%E8%AE%B0-%E4%B8%89/index.html">
-<meta property="og:site_name" content="藏器待时">
+<meta property="og:site_name" content="liubin&#39;s blog">
 <meta property="og:description" content="虚拟机性能监控与故障处理工具 命令行工具 jps：虚拟机进程状况工具 jstat：虚拟机统计信息监视工具 jinfo：Java配置信息工具 jmap：Java内存映像工具 jstack：Java堆栈跟踪工具 HSDIS：JIT生成代码反汇编   可视化工具 jconsole：Java监视与管理控制台 jvisualvm：多合一故障处理工具">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-04-09T10:38:46.000Z">
@@ -32,7 +34,7 @@
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>《深入理解Java虚拟机：JVM高级特性与最佳实践》笔记(三) - 藏器待时</title>
+  <title>《深入理解Java虚拟机：JVM高级特性与最佳实践》笔记(三) - liubin&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -81,7 +83,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
-      <strong>Fluid</strong>
+      <strong>Blog</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -185,6 +187,11 @@
             
               <div class="mt-3">
   
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Liu Bin
+    </span>
+  
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
@@ -197,19 +204,7 @@
 
 <div class="mt-1">
   
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      undefined 字
-    </span>
-  
 
-  
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      NaN 分钟
-    </span>
   
 
   

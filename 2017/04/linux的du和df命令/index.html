@@ -12,6 +12,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
   <meta name="theme-color" content="#2f4154">
   <meta name="author" content="Liu Bin">
   <meta name="keywords" content="">
@@ -20,7 +22,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux的du和df命令">
 <meta property="og:url" content="https://liubin92.github.io/2017/04/linux%E7%9A%84du%E5%92%8Cdf%E5%91%BD%E4%BB%A4/index.html">
-<meta property="og:site_name" content="藏器待时">
+<meta property="og:site_name" content="liubin&#39;s blog">
 <meta property="og:description" content="这是4月18号的流水账今天如往常一样完成一个功能后，把代码推到测试环境，结果 response 有点跟往常不一样： 123456789101112liubin@localhost:~# git push test branchCounting objects: 18, done.Delta compression using up to 4 threads.Compressing objects:">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2017-04-18T09:07:14.000Z">
@@ -30,7 +32,7 @@
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>Linux的du和df命令 - 藏器待时</title>
+  <title>Linux的du和df命令 - liubin&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -79,7 +81,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
-      <strong>Fluid</strong>
+      <strong>Blog</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -183,6 +185,11 @@
             
               <div class="mt-3">
   
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Liu Bin
+    </span>
+  
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
@@ -195,19 +202,7 @@
 
 <div class="mt-1">
   
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      undefined 字
-    </span>
-  
 
-  
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      NaN 分钟
-    </span>
   
 
   
@@ -239,22 +234,22 @@
             
             <div class="markdown-body">
               <h2 id="这是4月18号的流水账"><a href="#这是4月18号的流水账" class="headerlink" title="这是4月18号的流水账"></a>这是4月18号的流水账</h2><p>今天如往常一样完成一个功能后，把代码推到测试环境，结果 response 有点跟往常不一样：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">liubin@localhost:~<span class="comment"># git push test branch</span></span><br><span class="line">Counting objects: 18, <span class="keyword">done</span>.</span><br><span class="line">Delta compression using up to 4 threads.</span><br><span class="line">Compressing objects: 100% (16/16), <span class="keyword">done</span>.</span><br><span class="line">Writing objects: 100% (18/18), 2.12 KiB | 0 bytes/s, <span class="keyword">done</span>.</span><br><span class="line">Total 18 (delta 11), reused 0 (delta 0)</span><br><span class="line">remote: error: file write error (No space left on device)</span><br><span class="line">remote: fatal: unable to write sha1 file</span><br><span class="line">error: unpack failed: unpack-objects abnormal <span class="built_in">exit</span></span><br><span class="line">To csrtest:/var/gitlab/test.git</span><br><span class="line"> ! [remote rejected]   branch -&gt; branch (unpacker error)</span><br><span class="line">error: failed to push some refs to <span class="string">&#x27;git@test:/var/gitlab/test.git&#x27;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><pre><code class="hljs bash">liubin@localhost:~<span class="hljs-comment"># git push test branch</span><br>Counting objects: 18, <span class="hljs-keyword">done</span>.<br>Delta compression using up to 4 threads.<br>Compressing objects: 100% (16/16), <span class="hljs-keyword">done</span>.<br>Writing objects: 100% (18/18), 2.12 KiB | 0 bytes/s, <span class="hljs-keyword">done</span>.<br>Total 18 (delta 11), reused 0 (delta 0)<br>remote: error: file write error (No space left on device)<br>remote: fatal: unable to write sha1 file<br>error: unpack failed: unpack-objects abnormal <span class="hljs-built_in">exit</span><br>To csrtest:/var/gitlab/test.git<br> ! [remote rejected]   branch -&gt; branch (unpacker error)<br>error: failed to push some refs to <span class="hljs-string">&#x27;git@test:/var/gitlab/test.git&#x27;</span><br></code></pre></td></tr></table></figure>
 
 <p>No space left on device. 意思是测试服务器上没空了呗，上去看一下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">liubin@<span class="built_in">test</span>:~<span class="comment"># df -h</span></span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/vda2       289G  274G   16M 100% /</span><br><span class="line">tmpfs           939M     0  939M   0% /dev/shm</span><br><span class="line">/dev/vda1       985M   93M  842M  10% /boot</span><br><span class="line">/dev/vda3       203G  188M  193G   1% /data</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">liubin@<span class="hljs-built_in">test</span>:~<span class="hljs-comment"># df -h</span><br>Filesystem      Size  Used Avail Use% Mounted on<br>/dev/vda2       289G  274G   16M 100% /<br>tmpfs           939M     0  939M   0% /dev/shm<br>/dev/vda1       985M   93M  842M  10% /boot<br>/dev/vda3       203G  188M  193G   1% /data<br></code></pre></td></tr></table></figure>
 
 <span id="more"></span>
 
 <p>果不其然，那应该是缓存文件太多了，去缓存目录看一下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">liubin@<span class="built_in">test</span>:~<span class="comment"># du -sh</span></span><br><span class="line">184G</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">liubin@<span class="hljs-built_in">test</span>:~<span class="hljs-comment"># du -sh</span><br>184G<br></code></pre></td></tr></table></figure>
 
 <p>那清一清吧。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">liubin@<span class="built_in">test</span>:~<span class="comment"># rm -rf ./*</span></span><br><span class="line">zsh: sure you want to delete all the files <span class="keyword">in</span> .../cache/. [yn]? y</span><br><span class="line">liubin@<span class="built_in">test</span>:~<span class="comment"># ll</span></span><br><span class="line">total 0</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">liubin@<span class="hljs-built_in">test</span>:~<span class="hljs-comment"># rm -rf ./*</span><br>zsh: sure you want to delete all the files <span class="hljs-keyword">in</span> .../cache/. [yn]? y<br>liubin@<span class="hljs-built_in">test</span>:~<span class="hljs-comment"># ll</span><br>total 0<br></code></pre></td></tr></table></figure>
 
 <p>清完然后就好使了。</p>
 <p>可是清完后跟之前的数有点对不大上：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">liubin@<span class="built_in">test</span>:~<span class="comment"># df -h</span></span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/vda2       289G  208G   66G  76% /</span><br><span class="line">tmpfs           939M     0  939M   0% /dev/shm</span><br><span class="line">/dev/vda1       985M   93M  842M  10% /boot</span><br><span class="line">/dev/vda3       203G  188M  193G   1% /data</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">liubin@<span class="hljs-built_in">test</span>:~<span class="hljs-comment"># df -h</span><br>Filesystem      Size  Used Avail Use% Mounted on<br>/dev/vda2       289G  208G   66G  76% /<br>tmpfs           939M     0  939M   0% /dev/shm<br>/dev/vda1       985M   93M  842M  10% /boot<br>/dev/vda3       203G  188M  193G   1% /data<br></code></pre></td></tr></table></figure>
 
 <p><del>我猜可能是虚拟机的存储管理机制的缘故，物理机出现这种情况的话那才奇了怪了，不过我也没兴趣继续深究这个问题。</del></p>
 <p><del>就是记一次流水账，非科普。</del></p>
@@ -262,7 +257,7 @@
 <h2 id="以下是4月19号的补充"><a href="#以下是4月19号的补充" class="headerlink" title="以下是4月19号的补充"></a>以下是4月19号的补充</h2><p>本以为今天和往常一样，结果跟昨天一样。</p>
 <p><em><strong>测试服务器磁盘又满了。</strong></em></p>
 <p>隐约觉得应该是哪儿溢出了，<code>top</code> 一下果然 php 进程始终99%，又看了下php进程，有一个执行后台计算的脚本，从4月17号下午就已经存在了，<code>sudo kill -9</code> 了之后，结果 <code>df -h</code> 对上了！</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">liubin@<span class="built_in">test</span>:~<span class="comment"># df -h</span></span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/vda2       289G   91G  184G  34% /</span><br><span class="line">tmpfs           939M     0  939M   0% /dev/shm</span><br><span class="line">/dev/vda1       985M   93M  842M  10% /boot</span><br><span class="line">/dev/vda3       203G  188M  193G   1% /data</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">liubin@<span class="hljs-built_in">test</span>:~<span class="hljs-comment"># df -h</span><br>Filesystem      Size  Used Avail Use% Mounted on<br>/dev/vda2       289G   91G  184G  34% /<br>tmpfs           939M     0  939M   0% /dev/shm<br>/dev/vda1       985M   93M  842M  10% /boot<br>/dev/vda3       203G  188M  193G   1% /data<br></code></pre></td></tr></table></figure>
 
 <p>然后把那个“溢出”的进程在本地复现了之后，想起了昨天的那句：</p>
 <blockquote>
