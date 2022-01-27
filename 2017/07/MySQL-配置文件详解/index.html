@@ -1,0 +1,497 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Liu Bin">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="近几个月 team 里就剩我一个工程师，前端后端运维杂活儿一大堆，各种开会 &amp; 面试，一直没来得及写 blog，近期小组内部一起研究 mysql，所以先分享我的 mysql 配置(附带部分配置项说明)以供参考，之后更新也当做个记录。 environment MacBook Pro (Retina, 13-inch, Early 2015) macOS 10.12.5 slave versi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL 配置文件详解">
+<meta property="og:url" content="https://liubin92.github.io/2017/07/MySQL-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="藏器待时">
+<meta property="og:description" content="近几个月 team 里就剩我一个工程师，前端后端运维杂活儿一大堆，各种开会 &amp; 面试，一直没来得及写 blog，近期小组内部一起研究 mysql，所以先分享我的 mysql 配置(附带部分配置项说明)以供参考，之后更新也当做个记录。 environment MacBook Pro (Retina, 13-inch, Early 2015) macOS 10.12.5 slave versi">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-07-12T07:34:07.000Z">
+<meta property="article:modified_time" content="2022-01-24T02:14:23.281Z">
+<meta property="article:author" content="Liu Bin">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>MySQL 配置文件详解 - 藏器待时</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liubin92.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="MySQL 配置文件详解">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2017-07-12 15:34" pubdate>
+        2017年7月12日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      undefined 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      NaN 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">MySQL 配置文件详解</h1>
+            
+            <div class="markdown-body">
+              <p>近几个月 team 里就剩我一个工程师，前端后端运维杂活儿一大堆，各种开会 &amp; 面试，一直没来得及写 blog，近期小组内部一起研究 mysql，所以先分享我的 mysql 配置(附带部分配置项说明)以供参考，之后更新也当做个记录。</p>
+<h4 id="environment"><a href="#environment" class="headerlink" title="environment"></a>environment</h4><ul>
+<li>MacBook Pro (Retina, 13-inch, Early 2015)</li>
+<li>macOS 10.12.5</li>
+<li>slave version 5.7.18</li>
+<li>master version 5.5.33</li>
+</ul>
+<span id="more"></span>
+
+
+<h4 id="my-cnf"><a href="#my-cnf" class="headerlink" title="my.cnf"></a>my.cnf</h4><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[client]</span><br><span class="line"><span class="attr">port</span> = <span class="number">3306</span></span><br><span class="line"><span class="attr">socket</span> = /tmp/mysql.sock</span><br><span class="line"><span class="comment"># 低版本未指定时不同终端可能会出现不同字符集</span></span><br><span class="line"><span class="attr">default-character-set</span> = utf8mb4</span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line"><span class="comment"># basic settings #</span></span><br><span class="line"><span class="attr">user</span> = mysql</span><br><span class="line"><span class="attr">port</span> = <span class="number">3306</span></span><br><span class="line"><span class="attr">socket</span> = /tmp/mysql.sock</span><br><span class="line"><span class="attr">server_id</span> = <span class="number">2</span></span><br><span class="line"><span class="attr">character-set-server</span> = utf8mb4</span><br><span class="line"><span class="attr">default-storage-engine</span> = INNODB</span><br><span class="line"><span class="attr">sql_mode</span> = <span class="string">&quot;STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION,NO_ZERO_DATE,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER&quot;</span></span><br><span class="line"><span class="attr">autocommit</span> = <span class="number">1</span></span><br><span class="line"><span class="comment"># 将事务隔离级别设置为READ-COMMITTED</span></span><br><span class="line"><span class="attr">transaction_isolation</span> = READ-COMMITTED</span><br><span class="line"><span class="comment"># 设置处理TIMESTAMP列的方式，详见官方文档说明</span></span><br><span class="line"><span class="attr">explicit_defaults_for_timestamp</span> = <span class="number">1</span></span><br><span class="line"><span class="comment"># 接受的数据包大小，有时大的插入和更新会失败，将max_allowed_packet设置适当避免该问题</span></span><br><span class="line"><span class="attr">max_allowed_packet</span> = <span class="number">128</span>M</span><br><span class="line"><span class="attr">event_scheduler</span> = <span class="number">1</span></span><br><span class="line"><span class="comment"># 关闭鸡肋的query_cache</span></span><br><span class="line"><span class="attr">query_cache_type</span> = <span class="number">0</span></span><br><span class="line"><span class="attr">query_cache_size</span> = <span class="number">0</span></span><br><span class="line"><span class="comment"># os file system config #</span></span><br><span class="line"><span class="attr">lower_case_table_names</span> = <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># connection #</span></span><br><span class="line"><span class="comment"># 使用MySQL客户端连接超时时间设为3分钟</span></span><br><span class="line"><span class="attr">interactive_timeout</span> = <span class="number">1800</span></span><br><span class="line"><span class="comment"># 使用JDBC连接超时时间设为3分钟</span></span><br><span class="line"><span class="attr">wait_timeout</span> = <span class="number">1800</span></span><br><span class="line"><span class="comment"># 锁等待时间</span></span><br><span class="line"><span class="attr">lock_wait_timeout</span> = <span class="number">1800</span></span><br><span class="line"><span class="comment"># 该参数目的是不再进行反解析，可以加快数据库的反应时间</span></span><br><span class="line"><span class="attr">skip_name_resolve</span> = <span class="number">1</span></span><br><span class="line"><span class="comment"># 允许的最大连接数</span></span><br><span class="line"><span class="attr">max_connections</span> = <span class="number">512</span></span><br><span class="line"><span class="comment"># 允许的最大错误连接数，超过该值客户端将被屏蔽，默认为100，一般将该值设的较大避免客户端被屏蔽引发难以预料的问题</span></span><br><span class="line"><span class="attr">max_connect_errors</span> = <span class="number">1000000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># table cache performance settings</span></span><br><span class="line"><span class="attr">table_open_cache</span> = <span class="number">4096</span></span><br><span class="line"><span class="attr">table_definition_cache</span> = <span class="number">4096</span></span><br><span class="line"><span class="attr">table_open_cache_instances</span> = <span class="number">32</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># session memory settings #</span></span><br><span class="line"><span class="comment"># MySQL读入缓冲区大小</span></span><br><span class="line"><span class="attr">read_buffer_size</span> = <span class="number">16</span>M</span><br><span class="line"><span class="comment"># MySQL随机读缓冲区大小</span></span><br><span class="line"><span class="attr">read_rnd_buffer_size</span> = <span class="number">32</span>M</span><br><span class="line"><span class="comment"># 排序缓存大小，在排序大量数据时该值将影响order by子句的执行效率</span></span><br><span class="line"><span class="attr">sort_buffer_size</span> = <span class="number">32</span>M</span><br><span class="line"><span class="comment"># 临时表大小，在排序和连接较多时，适当</span></span><br><span class="line"><span class="attr">tmp_table_size</span> = <span class="number">64</span>M</span><br><span class="line"><span class="comment"># 连接缓存大小，在连接大表时，该值将影响连接查询的效率</span></span><br><span class="line"><span class="attr">join_buffer_size</span> = <span class="number">128</span>M</span><br><span class="line"><span class="attr">thread_cache_size</span> = <span class="number">64</span></span><br><span class="line"><span class="attr">thread_stack</span> = <span class="number">512</span>K</span><br><span class="line"></span><br><span class="line"><span class="comment"># log settings #</span></span><br><span class="line"><span class="attr">log_error</span> = error.log</span><br><span class="line"><span class="comment"># 开启慢查询日志</span></span><br><span class="line"><span class="attr">slow_query_log</span> = <span class="number">1</span></span><br><span class="line"><span class="comment"># 慢查询日志存放位置</span></span><br><span class="line"><span class="attr">slow_query_log_file</span> = /usr/local/var/mysql/liubindeMBP-slow.log</span><br><span class="line"><span class="attr">log_queries_not_using_indexes</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">log_slow_admin_statements</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">log_slow_slave_statements</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">log_throttle_queries_not_using_indexes</span> = <span class="number">10</span></span><br><span class="line"><span class="comment"># 二进制日志过期时间</span></span><br><span class="line"><span class="attr">expire_logs_days</span> = <span class="number">90</span></span><br><span class="line"><span class="comment"># 超过多少秒的查询，被视为慢查询</span></span><br><span class="line"><span class="attr">long_query_time</span> = <span class="number">2</span>  </span><br><span class="line"><span class="attr">min_examined_row_limit</span> = <span class="number">100</span>  </span><br><span class="line"><span class="attr">binlog-rows-query-log-events</span> = <span class="number">1</span>  </span><br><span class="line"><span class="attr">log-bin-trust-function-creators</span> = <span class="number">1</span>  </span><br><span class="line"><span class="attr">expire-logs-days</span> = <span class="number">90</span>  </span><br><span class="line"><span class="comment">#log-slave-updates = 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># innodb settings #</span></span><br><span class="line"><span class="attr">innodb_page_size</span> = <span class="number">16384</span>  </span><br><span class="line"><span class="comment"># InnoDB缓存池大小</span></span><br><span class="line"><span class="attr">innodb_buffer_pool_size</span> = <span class="number">4</span>G</span><br><span class="line"><span class="comment"># InnoDB缓存池实例数</span></span><br><span class="line"><span class="attr">innodb_buffer_pool_instances</span> = <span class="number">4</span></span><br><span class="line"><span class="comment"># 在启动时把热数据加载到内存</span></span><br><span class="line"><span class="attr">innodb_buffer_pool_load_at_startup</span> = <span class="number">1</span></span><br><span class="line"><span class="comment"># 数据库关闭时自动dump数据</span></span><br><span class="line"><span class="attr">innodb_buffer_pool_dump_at_shutdown</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">innodb_lru_scan_depth</span> = <span class="number">4096</span></span><br><span class="line"><span class="attr">innodb_lock_wait_timeout</span> = <span class="number">5</span></span><br><span class="line"><span class="attr">innodb_io_capacity</span> = <span class="number">10000</span></span><br><span class="line"><span class="attr">innodb_io_capacity_max</span> = <span class="number">20000</span></span><br><span class="line"><span class="attr">innodb_flush_method</span> = O_DIRECT</span><br><span class="line"><span class="attr">innodb_undo_logs</span> = <span class="number">128</span></span><br><span class="line"><span class="attr">innodb_undo_tablespaces</span> = <span class="number">0</span></span><br><span class="line"><span class="attr">innodb_flush_neighbors</span> = <span class="number">0</span></span><br><span class="line"><span class="attr">innodb_log_file_size</span> = <span class="number">8589934592</span></span><br><span class="line"><span class="attr">innodb_log_files_in_group</span> = <span class="number">2</span></span><br><span class="line"><span class="attr">innodb_log_buffer_size</span> = <span class="number">16777216</span></span><br><span class="line"><span class="attr">innodb_purge_threads</span> = <span class="number">4</span></span><br><span class="line"><span class="attr">innodb_large_prefix</span> = <span class="number">1</span></span><br><span class="line"><span class="comment"># 并发运行的线程数，设置为0表示不限制</span></span><br><span class="line"><span class="attr">innodb_thread_concurrency</span> = <span class="number">8</span></span><br><span class="line"><span class="attr">innodb_print_all_deadlocks</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">innodb_strict_mode</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">innodb_sort_buffer_size</span> = <span class="number">67108864</span></span><br><span class="line"><span class="attr">innodb_write_io_threads</span> = <span class="number">16</span></span><br><span class="line"><span class="attr">innodb_read_io_threads</span> = <span class="number">16</span></span><br><span class="line"><span class="attr">innodb_file_per_table</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">innodb_stats_persistent_sample_pages</span> = <span class="number">64</span></span><br><span class="line"><span class="attr">innodb_autoinc_lock_mode</span> = <span class="number">2</span></span><br><span class="line"><span class="attr">innodb_online_alter_log_max_size=1G</span></span><br><span class="line"><span class="attr">innodb_open_files=4096</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># replication settings #</span></span><br><span class="line"><span class="attr">replicate-do-db</span> = panorama</span><br><span class="line"><span class="comment"># 测试机(v5.5) 没这个参数</span></span><br><span class="line"><span class="attr">binlog_checksum</span> = NONE</span><br><span class="line"><span class="comment"># master.info保存在表中</span></span><br><span class="line"><span class="comment">#master_info_repository = TABLE </span></span><br><span class="line"><span class="comment"># relay.info保存在表中</span></span><br><span class="line"><span class="attr">relay_log_info_repository</span> = TABLE</span><br><span class="line"><span class="comment"># 当每进行1次事务提交之后，MySQL将进行一次fsync磁盘同步，以此来保证无损复制</span></span><br><span class="line"><span class="attr">sync_binlog</span> = <span class="number">1</span></span><br><span class="line"><span class="comment"># 启动GTID模式</span></span><br><span class="line"><span class="comment">#gtid_mode = on</span></span><br><span class="line"><span class="comment"># 启动GTID模式</span></span><br><span class="line"><span class="comment">#enforce_gtid_consistency = 1</span></span><br><span class="line"><span class="comment"># 从服务器的更新写入二进制日志,便于主从切换时，从服务器已经开启二进制日志</span></span><br><span class="line">log_slave_updates</span><br><span class="line"><span class="comment"># 以row格式记录binlog</span></span><br><span class="line"><span class="comment">#binlog_format = ROW</span></span><br><span class="line"><span class="attr">binlog_format</span> = STATEMENT</span><br><span class="line"><span class="comment">#binlog_rows_query_log_events = 1</span></span><br><span class="line"><span class="attr">relay_log</span> = relay.log</span><br><span class="line"><span class="attr">relay_log_index</span> = relay_log.index</span><br><span class="line"><span class="comment"># 允许从库宕机后，重新从master上获取日志，保证relay-log的完整性</span></span><br><span class="line"><span class="attr">relay_log_recovery</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">slave_skip_errors</span> = ddl_exist_errors</span><br><span class="line"><span class="comment">#slave-rows-search-algorithms = &#x27;INDEX_SCAN,HASH_SCAN&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># semi sync replication settings #</span></span><br><span class="line"><span class="comment">#plugin_load = &quot;validate_password.so;rpl_semi_sync_master=semisync_master.so;rpl_semi_sync_slave=semisync_slave.so&quot;</span></span><br><span class="line"><span class="attr">plugin_load</span> = <span class="string">&quot;validate_password.so&quot;</span></span><br><span class="line"><span class="comment">#rpl_semi_sync_master_enabled = 1</span></span><br><span class="line"><span class="comment">#rpl_semi_sync_master_timeout = 3000</span></span><br><span class="line"><span class="comment">#rpl_semi_sync_slave_enabled = 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># password plugin #</span></span><br><span class="line"><span class="attr">validate_password_policy=MEDIUM</span></span><br><span class="line"><span class="attr">validate-password=FORCE_PLUS_PERMANENT</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># new innodb settings #</span></span><br><span class="line"><span class="attr">innodb_buffer_pool_dump_pct</span> = <span class="number">40</span></span><br><span class="line"><span class="attr">innodb_page_cleaners</span> = <span class="number">4</span></span><br><span class="line"><span class="attr">innodb_undo_log_truncate</span> = <span class="number">1</span></span><br><span class="line"><span class="comment"># 当超过这个阀值（默认是1G），会触发truncate回收（收缩）动作，truncate后空间缩小到10M</span></span><br><span class="line"><span class="attr">innodb_max_undo_log_size</span> = <span class="number">2</span>G</span><br><span class="line"><span class="attr">innodb_purge_rseg_truncate_frequency</span> = <span class="number">128</span></span><br><span class="line"><span class="comment"># new replication settings #</span></span><br><span class="line"><span class="comment">#slave-parallel-type = LOGICAL_CLOCK</span></span><br><span class="line"><span class="comment">#slave-parallel-workers = 4</span></span><br><span class="line"><span class="comment">#slave_preserve_commit_order = 1</span></span><br><span class="line"><span class="comment">#slave_transaction_retries = 128</span></span><br><span class="line"><span class="comment"># other change settings #</span></span><br><span class="line"><span class="attr">binlog_gtid_simple_recovery</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">log_timestamps</span> = system</span><br><span class="line"><span class="attr">show_compatibility_56</span> = on</span><br><span class="line"></span><br><span class="line">[mysql]</span><br><span class="line"><span class="attr">prompt</span> = [\\u@\\h][\\d]&gt;\\_</span><br><span class="line">no-auto-rehash</span><br><span class="line"><span class="attr">default-character-set</span> = utf8mb4</span><br><span class="line"></span><br><span class="line">[mysqldump]</span><br><span class="line">quick</span><br><span class="line"></span><br><span class="line">[isamchk]</span><br><span class="line"><span class="comment"># 5.7版本部分系统表还在使用MyISAM，结合系统中引擎使用情况适当优化</span></span><br><span class="line"><span class="attr">key_buffer_size</span> = <span class="number">2</span>G</span><br><span class="line"><span class="attr">myisam_sort_buffer_size</span> = <span class="number">128</span>M</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h4><blockquote>
+<p><strong>Question: Mysql configuration file sections</strong></p>
+</blockquote>
+<blockquote>
+<p>Description:<br>I am trying to understand the different sections inside the my.ini configuration file ([client], [mysqld], [mysql]) and so on, I am looking for a guide describing each of the optional sections for the my.ini file, Also i was wondering what is the difference between init_connect and init-connect and i mean between the underscore(_) and the hyphen(-), Thank you all and have a nice day.</p>
+</blockquote>
+<blockquote>
+<p><strong>Answer:</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>[mysql]</strong> applies to the mysql command line client - <a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/5.5/en/mysql-command-options.html">mysql and client options</a></p>
+</blockquote>
+<blockquote>
+<p><strong>[client]</strong> applies to all connecting clients (including mysql cli) - <a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/5.5/en/mysql-command-options.html">mysql and client options</a></p>
+</blockquote>
+<blockquote>
+<p><strong>[mysqld]</strong> applies to the mysql server - <a target="_blank" rel="noopener" href="http://dev.mysql.com/doc/refman/5.5/en/server-options.html">server options</a></p>
+</blockquote>
+<blockquote>
+<p><strong>[mysqldump]</strong> applies to the utility of the same name - <a target="_blank" rel="noopener" href="http://dev.mysql.com/doc/refman/5.5/en/mysqldump.html">mysqldump options</a></p>
+</blockquote>
+<blockquote>
+<p>…etc</p>
+</blockquote>
+<blockquote>
+<p>The difference between the (-) and the (_) is the context in which it is used.</p>
+</blockquote>
+<blockquote>
+<p>(-) is used in command line parameters, where (_) is used in options file parameters.</p>
+</blockquote>
+<blockquote>
+<p>You can see more in the docs: <a target="_blank" rel="noopener" href="http://dev.mysql.com/doc/refman/5.5/en/option-files.html">http://dev.mysql.com/doc/refman/5.5/en/option-files.html</a></p>
+</blockquote>
+<h4 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/jdaaaaaavid/mysql_best_configuration">https://github.com/jdaaaaaavid/mysql_best_configuration</a></li>
+<li><a target="_blank" rel="noopener" href="http://fuxuri.com/2017/06/03/mysql-my-cnfpei-zhi/">http://fuxuri.com/2017/06/03/mysql-my-cnfpei-zhi/</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/15453555/mysql-configuration-file-sections">https://stackoverflow.com/questions/15453555/mysql-configuration-file-sections</a></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/MySQL/">MySQL</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/MySQL/">MySQL</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2017/07/MySQL-%E7%94%A8%E6%88%B7%E4%B8%8E%E6%8E%88%E6%9D%83/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">MySQL 用户与授权</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2017/04/Docker%E5%9C%A8PHP%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/">
+                        <span class="hidden-mobile">Docker在PHP项目开发环境中的应用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

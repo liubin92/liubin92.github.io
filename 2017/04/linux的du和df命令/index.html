@@ -1,0 +1,494 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Liu Bin">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="这是4月18号的流水账今天如往常一样完成一个功能后，把代码推到测试环境，结果 response 有点跟往常不一样： 123456789101112liubin@localhost:~# git push test branchCounting objects: 18, done.Delta compression using up to 4 threads.Compressing objects:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux的du和df命令">
+<meta property="og:url" content="https://liubin92.github.io/2017/04/linux%E7%9A%84du%E5%92%8Cdf%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:site_name" content="藏器待时">
+<meta property="og:description" content="这是4月18号的流水账今天如往常一样完成一个功能后，把代码推到测试环境，结果 response 有点跟往常不一样： 123456789101112liubin@localhost:~# git push test branchCounting objects: 18, done.Delta compression using up to 4 threads.Compressing objects:">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-04-18T09:07:14.000Z">
+<meta property="article:modified_time" content="2022-01-24T02:14:23.281Z">
+<meta property="article:author" content="Liu Bin">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>Linux的du和df命令 - 藏器待时</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liubin92.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Linux的du和df命令">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2017-04-18 17:07" pubdate>
+        2017年4月18日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      undefined 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      NaN 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Linux的du和df命令</h1>
+            
+            <div class="markdown-body">
+              <h2 id="这是4月18号的流水账"><a href="#这是4月18号的流水账" class="headerlink" title="这是4月18号的流水账"></a>这是4月18号的流水账</h2><p>今天如往常一样完成一个功能后，把代码推到测试环境，结果 response 有点跟往常不一样：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">liubin@localhost:~<span class="comment"># git push test branch</span></span><br><span class="line">Counting objects: 18, <span class="keyword">done</span>.</span><br><span class="line">Delta compression using up to 4 threads.</span><br><span class="line">Compressing objects: 100% (16/16), <span class="keyword">done</span>.</span><br><span class="line">Writing objects: 100% (18/18), 2.12 KiB | 0 bytes/s, <span class="keyword">done</span>.</span><br><span class="line">Total 18 (delta 11), reused 0 (delta 0)</span><br><span class="line">remote: error: file write error (No space left on device)</span><br><span class="line">remote: fatal: unable to write sha1 file</span><br><span class="line">error: unpack failed: unpack-objects abnormal <span class="built_in">exit</span></span><br><span class="line">To csrtest:/var/gitlab/test.git</span><br><span class="line"> ! [remote rejected]   branch -&gt; branch (unpacker error)</span><br><span class="line">error: failed to push some refs to <span class="string">&#x27;git@test:/var/gitlab/test.git&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>No space left on device. 意思是测试服务器上没空了呗，上去看一下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">liubin@<span class="built_in">test</span>:~<span class="comment"># df -h</span></span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/vda2       289G  274G   16M 100% /</span><br><span class="line">tmpfs           939M     0  939M   0% /dev/shm</span><br><span class="line">/dev/vda1       985M   93M  842M  10% /boot</span><br><span class="line">/dev/vda3       203G  188M  193G   1% /data</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>果不其然，那应该是缓存文件太多了，去缓存目录看一下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">liubin@<span class="built_in">test</span>:~<span class="comment"># du -sh</span></span><br><span class="line">184G</span><br></pre></td></tr></table></figure>
+
+<p>那清一清吧。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">liubin@<span class="built_in">test</span>:~<span class="comment"># rm -rf ./*</span></span><br><span class="line">zsh: sure you want to delete all the files <span class="keyword">in</span> .../cache/. [yn]? y</span><br><span class="line">liubin@<span class="built_in">test</span>:~<span class="comment"># ll</span></span><br><span class="line">total 0</span><br></pre></td></tr></table></figure>
+
+<p>清完然后就好使了。</p>
+<p>可是清完后跟之前的数有点对不大上：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">liubin@<span class="built_in">test</span>:~<span class="comment"># df -h</span></span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/vda2       289G  208G   66G  76% /</span><br><span class="line">tmpfs           939M     0  939M   0% /dev/shm</span><br><span class="line">/dev/vda1       985M   93M  842M  10% /boot</span><br><span class="line">/dev/vda3       203G  188M  193G   1% /data</span><br></pre></td></tr></table></figure>
+
+<p><del>我猜可能是虚拟机的存储管理机制的缘故，物理机出现这种情况的话那才奇了怪了，不过我也没兴趣继续深究这个问题。</del></p>
+<p><del>就是记一次流水账，非科普。</del></p>
+<p>需要科普可以去查 <a target="_blank" rel="noopener" href="http://man.linuxde.net/">Linux命令大全</a>。</p>
+<h2 id="以下是4月19号的补充"><a href="#以下是4月19号的补充" class="headerlink" title="以下是4月19号的补充"></a>以下是4月19号的补充</h2><p>本以为今天和往常一样，结果跟昨天一样。</p>
+<p><em><strong>测试服务器磁盘又满了。</strong></em></p>
+<p>隐约觉得应该是哪儿溢出了，<code>top</code> 一下果然 php 进程始终99%，又看了下php进程，有一个执行后台计算的脚本，从4月17号下午就已经存在了，<code>sudo kill -9</code> 了之后，结果 <code>df -h</code> 对上了！</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">liubin@<span class="built_in">test</span>:~<span class="comment"># df -h</span></span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/vda2       289G   91G  184G  34% /</span><br><span class="line">tmpfs           939M     0  939M   0% /dev/shm</span><br><span class="line">/dev/vda1       985M   93M  842M  10% /boot</span><br><span class="line">/dev/vda3       203G  188M  193G   1% /data</span><br></pre></td></tr></table></figure>
+
+<p>然后把那个“溢出”的进程在本地复现了之后，想起了昨天的那句：</p>
+<blockquote>
+<p>物理机出现这种情况的话那才奇了怪了。</p>
+</blockquote>
+<p>所以说，还是看看怎么给虚拟机平反吧。毕竟，真相只有一个！</p>
+<p>果不其然，一查就找到了真相，有以下三种情况：</p>
+<blockquote>
+<p><strong>1.预留空间</strong></p>
+<p>为了预防紧急情况，linux ext文件系统会预留部分硬盘空间，具体预留的数值可以通过 <code>tune2fs -l [dev_name] | grep &quot;Reserved block count&quot;</code> 查看到（dev_name是设备名），这里预留的空间会被 <code>df</code> 计算到已用空间中，从而导致 <code>df</code> 和 <code>du</code> 统计不一致。如果需要调整预留空间大小，我们可以使用<code> tune2fs -m [size] [dev_name]</code> 来进行调整。</p>
+</blockquote>
+<blockquote>
+<p><strong>2.幻影文件(phantom file)</strong></p>
+<p><code>du</code>是统计被文件系统记录到的每个文件的大小，然后进行累加得到的大小，这是通过文件系统获取到的。而 <code>df</code> 主要是从超级块（superblock）中读入硬盘使用信息， <code>df</code> 获取到的是磁盘块被使用的情况。当一个文件被删除时，如果有别的进程正在使用它（占有句柄），<br> 这个文件将不会被 <code>du</code> 统计到，但是这个文件被占用的磁盘空间却依然会被 <code>df</code> 统计到。这些文件，以及正在使用这些文件的进程可以通过 <code>lsof | grep deleted</code> 查到。当进程停止或者被 kill 时，这些空间将被释放。</p>
+</blockquote>
+<blockquote>
+<p><strong>3.未统计到的文件</strong></p>
+<p>如果上面两种情况都排除了，但是数据还是不一致，那是怎么回事？这里隐藏着一种情况：当我们将一个目录挂在到一个新的设备（硬盘）上之前，如果这个目录里面已经有数据，那么这一部分数据不会被 <code>du</code> 感知，在文件系统中也看不到这些数据，但是这些数据又是确实占用了磁盘空间，是能够被 <code>df</code> 所统计到的。这时候通过 <code>du</code> / <code>df</code> 统计原设备的空间使用情况，就会发现 <code>df</code> 统计到的比 <code>du</code> 要多。遇到这样的情况时，使用 <code>fuser  -km [directory]</code> 杀死占用该目录的所有进程（小心操作！），然后使用 <code>umount [directory]</code> 将该目录挂载的设备卸载，这时，目录里面原来已有的数据就会出现，我们将其删除之后，再重新挂载设备（<code>mount -t [type] [dev] [directory]</code>）即可。</p>
+</blockquote>
+<p>而发生在我这里的就是第二种情况，文件被删除后，句柄还在被进程占用着，所以导致 <code>du</code> 和 <code>df</code> 意见不统一，kill 掉占用进程后，统计结果就一致了。</p>
+<p>本想写篇流水账凑数，结果还是被强行 push 到探索真相的道路上。</p>
+<h2 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h2><p>上面说那个“溢出”的进程加引号的原因是，表面上看起来像是溢出的进程，其实是产品经理那天添加了一个计算结果超过100亿行的计算任务，可能等了半天也没见出结果，就把那条记录给删掉了… 然后测试机就一两核 cpu &amp; 2G 内存的虚拟机，两天也没运行完，所以就造成了看似溢出的假象。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2017/04/Docker%E5%9C%A8PHP%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Docker在PHP项目开发环境中的应用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2017/04/Redux-saga%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93%E5%8F%8A%E5%85%B6%E9%AB%98%E7%BA%A7%E5%8A%9F%E8%83%BD%E5%9C%A8DvaJS%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/">
+                        <span class="hidden-mobile">Redux-saga实践总结及其高级功能在DvaJS中的应用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

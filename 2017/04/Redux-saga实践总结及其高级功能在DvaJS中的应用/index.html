@@ -1,0 +1,516 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Liu Bin">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="选择 dvajs最近一直忙于公司产品的前端重构，因为之前学习和接触的东西一直以后端为主，使用的语言又是以 PHP 为主，所以对于前端开发使用的语言 ES6 的代码规范和编程风格不太熟悉，对于前端工程化的经验也是几乎为零。虽然 leader 给了充足的学习时间和强大的技术支持，但写代码的就我自己。于是乎我就选择了 antd+dvajs，一来框架作者提供的 Demo 可以让我去学习前端的设计思想和代码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redux-saga实践总结及其高级功能在DvaJS中的应用">
+<meta property="og:url" content="https://liubin92.github.io/2017/04/Redux-saga%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93%E5%8F%8A%E5%85%B6%E9%AB%98%E7%BA%A7%E5%8A%9F%E8%83%BD%E5%9C%A8DvaJS%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:site_name" content="藏器待时">
+<meta property="og:description" content="选择 dvajs最近一直忙于公司产品的前端重构，因为之前学习和接触的东西一直以后端为主，使用的语言又是以 PHP 为主，所以对于前端开发使用的语言 ES6 的代码规范和编程风格不太熟悉，对于前端工程化的经验也是几乎为零。虽然 leader 给了充足的学习时间和强大的技术支持，但写代码的就我自己。于是乎我就选择了 antd+dvajs，一来框架作者提供的 Demo 可以让我去学习前端的设计思想和代码">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-04-16T07:23:51.000Z">
+<meta property="article:modified_time" content="2022-01-24T02:14:23.281Z">
+<meta property="article:author" content="Liu Bin">
+<meta property="article:tag" content="Redux">
+<meta property="article:tag" content="DvaJS">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>Redux-saga实践总结及其高级功能在DvaJS中的应用 - 藏器待时</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"liubin92.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Redux-saga实践总结及其高级功能在DvaJS中的应用">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2017-04-16 15:23" pubdate>
+        2017年4月16日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      undefined 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      NaN 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Redux-saga实践总结及其高级功能在DvaJS中的应用</h1>
+            
+            <div class="markdown-body">
+              <h2 id="选择-dvajs"><a href="#选择-dvajs" class="headerlink" title="选择 dvajs"></a>选择 dvajs</h2><p>最近一直忙于公司产品的前端重构，因为之前学习和接触的东西一直以后端为主，使用的语言又是以 PHP 为主，所以对于前端开发使用的语言 ES6 的代码规范和编程风格不太熟悉，对于前端工程化的经验也是几乎为零。虽然 leader 给了充足的学习时间和强大的技术支持，但写代码的就我自己。于是乎我就选择了 <strong>antd+dvajs</strong>，一来框架作者提供的 Demo 可以让我去学习前端的设计思想和代码的编写规范，二来我不需要耗费过多的精力去搭建整个项目的生态。站在巨人的肩上，才能更好更快地拥抱 <strong>react/redux</strong> 全家桶。</p>
+<h2 id="redux-saga"><a href="#redux-saga" class="headerlink" title="redux-saga"></a>redux-saga</h2><h3 id="什么是-saga"><a href="#什么是-saga" class="headerlink" title="什么是 saga"></a>什么是 saga</h3><p>Saga这个名词常被用在CQRS的讨论中，它是指一段在限定上下文（bounded contexts）和聚合（aggregates）之间起协作和路由（coordinates and routes）消息作用的代码。最早被定义在Hector Garcia-Molina和Kenneth Salem的论文”<a target="_blank" rel="noopener" href="http://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf">Sagas</a>“中。这篇论文提出了一个saga机制来作为分布式事务的替代品以解决长时间运行的分布式事务（long-running process）的问题。这篇论文认为业务过程经常由很多步骤组成，每个步骤都涉及一个事务，如果将这些事务组成一个分布式事务，就可以实现总体一致（overall consistency）。</p>
+<span id="more"></span>
+
+<h3 id="redux-saga-中几个抽象的概念："><a href="#redux-saga-中几个抽象的概念：" class="headerlink" title="redux-saga 中几个抽象的概念："></a>redux-saga 中几个抽象的概念：</h3><h4 id="Effect"><a href="#Effect" class="headerlink" title="Effect"></a>Effect</h4><p>Effect 是一个 javascript 对象，通过使用 <code>redux-saga/effects</code> 包里提供的函数来创建，里面包含描述异步操作（Side Effect）的信息，通过 yield 传达给 sagaMiddleware 执行, 我们可以把每一个 Effect 看成一道发送给 middleware 的指令。</p>
+<h4 id="Saga"><a href="#Saga" class="headerlink" title="Saga"></a>Saga</h4><p>所有的 Saga 都是由 Generator 函数实现，所做的实际上是通过组合 Effect，以实现所需的控制流。最简单的例子就是把 yield Effects 一个接一个地放置，就可以让 Effect 按顺序执行。</p>
+<h4 id="Task"><a href="#Task" class="headerlink" title="Task"></a>Task</h4><p>一个 task 就像是一个在后台运行的进程。在基于 redux-saga 的应用程序中，可以同时运行多个 task。通过 <code>fork</code> 函数来创建 task，同时可以使用 <code>cancel</code> 函数来结束 task。</p>
+<h3 id="原生-redux-saga-的使用"><a href="#原生-redux-saga-的使用" class="headerlink" title="原生 redux-saga 的使用"></a>原生 redux-saga 的使用</h3><p>鉴于文档中有详细的解释，这里只做介绍，查看文档建议阅读<a target="_blank" rel="noopener" href="https://redux-saga.github.io/redux-saga/index.html">官方英文文档</a>，中文文档一是没有及时更新，导致一些内容在中文文档里没有，另外翻译的水平也不太行，有些地方甚至出现错误的翻译。</p>
+<h4 id="Effect-创建器"><a href="#Effect-创建器" class="headerlink" title="Effect 创建器"></a>Effect 创建器</h4><h5 id="put"><a href="#put" class="headerlink" title="put"></a>put</h5><p>作用和 redux 中的 dispatch 相同。</p>
+<p><code>yield put(&#123; type: &#39;CLICK_BTN&#39; &#125;);</code></p>
+<h5 id="select"><a href="#select" class="headerlink" title="select"></a>select</h5><p>作用和 redux thunk 中的 getState 相同。</p>
+<p><code>const id = yield select(state =&gt; state.id);</code></p>
+<ul>
+<li><em>Ps：saga 最好是自主独立的，不应依赖 Store 的 state。这使得很容易修改 state 实现部分而不影响 Saga 代码。</em></li>
+</ul>
+<h5 id="take"><a href="#take" class="headerlink" title="take"></a>take</h5><p>监听（pulling）一个能匹配指定 pattern 的 action。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="keyword">yield</span> take(<span class="string">&#x27;CLICK_BUTTON&#x27;</span>);</span><br><span class="line">  <span class="keyword">yield</span> put(&#123;<span class="attr">type</span>: <span class="string">&#x27;SHOW_CONGRATULATION&#x27;</span>&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一个简单的日志记录器的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; select, take &#125; <span class="keyword">from</span> <span class="string">&#x27;redux-saga/effects&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">watchAndLog</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> action = <span class="keyword">yield</span> take(<span class="string">&#x27;*&#x27;</span>)</span><br><span class="line">    <span class="keyword">const</span> state = <span class="keyword">yield</span> select()</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;action&#x27;</span>, action)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;state after&#x27;</span>, state)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="call"><a href="#call" class="headerlink" title="call"></a>call</h5><p>阻塞地调用 saga 或者返回 promise 的函数。</p>
+<p><code>yield call(method, arg1, arg2, ...);</code></p>
+<p>同样支持调用对象方法，可以用下面这种方式，为调用的函数提供一个 this 上下文：</p>
+<p><code>yield call([obj, obj.method], arg1, arg2, ...) // 如同 obj.method(arg1, arg2 ...)</code></p>
+<h5 id="fork"><a href="#fork" class="headerlink" title="fork"></a>fork</h5><p>无阻塞地调用 saga 或者返回 promise 的函数, 返回一个 <a target="_blank" rel="noopener" href="https://redux-saga.github.io/redux-saga/docs/api/index.html#task">Task</a> 对象。</p>
+<p><code>yield fork(authorize, username, password)</code></p>
+<h5 id="cancel"><a href="#cancel" class="headerlink" title="cancel"></a>cancel</h5><p>取消之前 fork 的 task。</p>
+<p>下面的例子实现了在登陆过程中，一旦收到<code>LOGOUT </code>，马上终止<code>authorize </code>，然后在任务内部捕获取消错误，并执行内部的清理逻辑。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; isCancelError &#125; <span class="keyword">from</span> <span class="string">&#x27;redux-saga&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123; take, put, call, fork, cancel &#125; <span class="keyword">from</span> <span class="string">&#x27;redux-saga/effects&#x27;</span></span><br><span class="line"><span class="keyword">import</span> Api <span class="keyword">from</span> <span class="string">&#x27;...&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">authorize</span>(<span class="params">user, password</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> token = <span class="keyword">yield</span> call(Api.authorize, user, password)</span><br><span class="line">    <span class="keyword">yield</span> put(&#123;<span class="attr">type</span>: <span class="string">&#x27;LOGIN_SUCCESS&#x27;</span>, token&#125;)</span><br><span class="line">    <span class="keyword">return</span> token</span><br><span class="line">  &#125; <span class="keyword">catch</span>(error) &#123;</span><br><span class="line">    <span class="keyword">if</span>(!isCancelError(error))</span><br><span class="line">      <span class="keyword">yield</span> put(&#123;<span class="attr">type</span>: <span class="string">&#x27;LOGIN_ERROR&#x27;</span>, error&#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">loginFlow</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123;user, password&#125; = <span class="keyword">yield</span> take(<span class="string">&#x27;LOGIN_REQUEST&#x27;</span>)</span><br><span class="line">    <span class="comment">// fork return a Task object</span></span><br><span class="line">    <span class="keyword">const</span> task = <span class="keyword">yield</span> fork(authorize, user, password)</span><br><span class="line">    <span class="keyword">const</span> action = <span class="keyword">yield</span> take([<span class="string">&#x27;LOGOUT&#x27;</span>, <span class="string">&#x27;LOGIN_ERROR&#x27;</span>])</span><br><span class="line">    <span class="keyword">if</span>(action.type === <span class="string">&#x27;LOGOUT&#x27;</span>)</span><br><span class="line">      <span class="keyword">yield</span> cancel(task)</span><br><span class="line">    <span class="keyword">yield</span> call(Api.clearItem(<span class="string">&#x27;token&#x27;</span>))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><em>Ps-1：在取消任务中出现嵌套的 saga 时，所有的 saga 都会被取消，即取消会向下传播，但未被捕获的错误不会向上冒泡。</em></p>
+</li>
+<li><p><em>Ps-2：取消任务时，saga 中的<code>try...finally</code> 代码块，<code>finally </code> 里的代码会照常执行。</em></p>
+</li>
+<li><p><em>Ps-3：<code>yield cancel(task)</code>是非阻塞的，因此任务一旦取消，就应当尽快完成其清理逻辑。</em></p>
+</li>
+</ul>
+<h4 id="Effect-辅助函数"><a href="#Effect-辅助函数" class="headerlink" title="Effect 辅助函数"></a>Effect 辅助函数</h4><h5 id="takeEvery"><a href="#takeEvery" class="headerlink" title="takeEvery"></a>takeEvery</h5><p>监听（pulling）每个能匹配指定 pattern 的 action。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; takeEvery &#125; <span class="keyword">from</span> <span class="string">&#x27;redux-saga&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">watchFetchData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">yield</span>* takeEvery(<span class="string">&#x27;FETCH_REQUESTED&#x27;</span>, fetchData)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="takeLatest"><a href="#takeLatest" class="headerlink" title="takeLatest"></a>takeLatest</h5><p>监听（pulling）最后一个能匹配指定 pattern 的 action，之前启动的任务如果正在执行中，则会被自动取消。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; takeLatest &#125; <span class="keyword">from</span> <span class="string">&#x27;redux-saga&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">watchFetchData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">yield</span>* takeLatest(<span class="string">&#x27;FETCH_REQUESTED&#x27;</span>, fetchData)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="throttle"><a href="#throttle" class="headerlink" title="throttle"></a>throttle</h5><p>节流器。监听到一个匹配的 action 后，忽略一段时间内匹配到的其他 action，但是保留这段时间中最后一个匹配到的 action。<br><code>yield throttle(1000, &#39;FETCH_AUTOCOMPLETE&#39;, fetchAutocomplete)</code></p>
+<h4 id="Effect-组合器（combinators）"><a href="#Effect-组合器（combinators）" class="headerlink" title="Effect 组合器（combinators）"></a>Effect 组合器（combinators）</h4><h5 id="race"><a href="#race" class="headerlink" title="race"></a>race</h5><p>在多个 Effect 之间执行一个 race（类似 <code>Promise.race([...])</code> 的行为）。</p>
+<p>下面的示例演示了触发一个远程的获取请求，并且限制了 1 秒内响应，否则作超时处理。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; race, take, put &#125; <span class="keyword">from</span> <span class="string">&#x27;redux-saga/effects&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123; delay &#125; <span class="keyword">from</span> <span class="string">&#x27;redux-saga&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">fetchPostsWithTimeout</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> &#123;posts, timeout&#125; = <span class="keyword">yield</span> race(&#123;</span><br><span class="line">    <span class="attr">posts</span>: call(fetchApi, <span class="string">&#x27;/posts&#x27;</span>),</span><br><span class="line">    <span class="attr">timeout</span>: call(delay, <span class="number">1000</span>)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (posts)</span><br><span class="line">    put(&#123;<span class="attr">type</span>: <span class="string">&#x27;POSTS_RECEIVED&#x27;</span>, posts&#125;)</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    put(&#123;<span class="attr">type</span>: <span class="string">&#x27;TIMEOUT_ERROR&#x27;</span>&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="effects"><a href="#effects" class="headerlink" title="[...effects]"></a><code>[...effects]</code></h5><p>并行执行多个 Effect，然后等待所有 Effect 完成（类似 <code>Promise.all([...]</code>) 的行为）。</p>
+<p>下面的实例并行执行了 2 个阻塞调用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; fetchCustomers, fetchProducts &#125; <span class="keyword">from</span> <span class="string">&#x27;...&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">mySaga</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [customers, products] = <span class="keyword">yield</span> [</span><br><span class="line">    call(fetchCustomers),</span><br><span class="line">    call(fetchProducts)</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="redux-saga-高级功能在-dvajs-中的应用"><a href="#redux-saga-高级功能在-dvajs-中的应用" class="headerlink" title="redux-saga 高级功能在 dvajs 中的应用"></a>redux-saga 高级功能在 dvajs 中的应用</h3><p>在 dvajs 中，作者选择了 redux-saga 处理异步操作。而对于异步处理的问题，目前比较流行的通用解决方案如下：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/gaearon/redux-thunk">redux-thunk</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/acdlite/redux-promise">redux-promise</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/yelouafi/redux-saga">redux-saga</a></li>
+</ul>
+<p>前两个方案一个是支持函数形式的action，另一个是支持 promise 形式的 action，但是有一个共同的问题就是：都改变了action的含义，使得action的含义不那么纯粹了。</p>
+<p>redux-saga则以优雅而强大的方式，把业务逻辑都放在saga中，通过监听 action 来执行有副作用的 task，并且引入了 <a target="_blank" rel="noopener" href="http://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf">Sagas</a> 的机制和 generator 的特性，让 reducer, action 和 component 都很纯粹地干他们原本需要干的事情。</p>
+<p>但是，在目前的 dvajs 中的 effects 默认是 <code>takeEvery </code>（<a href="mailto:&#x64;&#x76;&#x61;&#x40;&#49;&#x2e;&#x32;&#x2e;&#49;">&#x64;&#x76;&#x61;&#x40;&#49;&#x2e;&#x32;&#x2e;&#49;</a>），虽然文档中没有关于其他类型 effects 的说明，但在 <a target="_blank" rel="noopener" href="https://github.com/dvajs/dva/blob/7f2575a/test/effects-test.js#L215-L222">源码</a> 中我们可以看到，作者其实是提供了使用方法的。</p>
+<p>通过下面的方式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> watcher = <span class="function"><span class="params">fn</span> =&gt;</span> [fn, &#123; <span class="attr">type</span>: <span class="string">&#x27;watcher&#x27;</span> &#125;];</span><br><span class="line"><span class="keyword">const</span> takeLatest = <span class="function"><span class="params">fn</span> =&gt;</span> [fn, &#123; <span class="attr">type</span>: <span class="string">&#x27;takeLatest&#x27;</span> &#125;];</span><br><span class="line"><span class="keyword">const</span> throttle = <span class="function"><span class="params">fn</span> =&gt;</span> [fn, &#123; <span class="attr">type</span>: <span class="string">&#x27;throttle&#x27;</span> &#125;];</span><br><span class="line"></span><br><span class="line">app.model(&#123;</span><br><span class="line">  <span class="attr">effects</span>: &#123;</span><br><span class="line">    <span class="attr">addRemote</span>: watcher(<span class="function"><span class="keyword">function</span>*(<span class="params">action, &#123; take, put, call &#125;</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123; payload &#125; = <span class="keyword">yield</span> take(<span class="string">&#x27;add&#x27;</span>);</span><br><span class="line">        <span class="keyword">yield</span> call(delay, <span class="number">100</span>);</span><br><span class="line">        <span class="keyword">yield</span> put(&#123; <span class="attr">type</span>: <span class="string">&#x27;add&#x27;</span>, payload &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>就可以使用所有原生 redux-saga 中的控制方式了。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Redux/">Redux</a>
+                    
+                      <a class="hover-with-bg" href="/tags/DvaJS/">DvaJS</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2017/04/linux%E7%9A%84du%E5%92%8Cdf%E5%91%BD%E4%BB%A4/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Linux的du和df命令</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2017/03/%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%8E%AF%E5%A2%83%E8%99%9A%E6%8B%9F%E6%8A%80%E6%9C%AF-bash-profile%E7%AB%8B%E5%8D%B3%E7%94%9F%E6%95%88%E6%96%B9%E5%BC%8F/">
+                        <span class="hidden-mobile">查看当前环境虚拟技术 & .bash_profile立即生效方式</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
